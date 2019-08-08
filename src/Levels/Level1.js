@@ -21,7 +21,7 @@ Ball.Level1.prototype = {
 		this.maxLevels = 5;
 		this.movementForce = 10;
 		this.ballStartPos = { x: Ball._WIDTH*0.5 - 16, y: 450 };
-		this.lives = 3;
+		this.lives = 4;
 
 
 		this.speedUp = this.add.sprite(300, 400, 'speedUp');
