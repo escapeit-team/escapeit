@@ -47,8 +47,16 @@ Ball.Level1.prototype = {
 		this.spikeGroup = this.add.group();
 		this.spikeGroup.enableBody = true;
 		this.spikeGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		this.spike1 = this.spikeGroup.create(200, 500-18, 'element-p');
+		this.spike1 = this.spikeGroup.create(200, 500-18, 'spikes');
 		this.spikeGroup.setAll('body.immovable', true);
+
+
+
+		this.reboundGroup = this.add.group();
+		this.reboundGroup.enableBody = true;
+		this.reboundGroup.physicsBodyType = Phaser.Physics.ARCADE;
+		this.rebound1 = this.reboundGroup.create(0, 500-18, 'rebound');
+		this.reboundGroup.setAll('body.immovable', true);
 		
 
 
@@ -370,6 +378,7 @@ Ball.Level1.prototype = {
 
 		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.spikeGroup, this.ballLives, null, this);
+		this.physics.arcade.collide(this.ball, this.reboundGroup, this.reboundExtra, null, this);
 			
 		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
 		this.physics.arcade.overlap(this.ball, this.speedUp, this.collectSpeedUp, null, this);
@@ -389,6 +398,19 @@ Ball.Level1.prototype = {
 			this.game.state.start('MainMenu');
 		}
 	},
+
+
+	reboundExtra: function() {
+		if (		this.physics.arcade.collide(this.ball, this.reboundGroup, this.reboundExtra, null, this)
+		){
+			this.ball.body.bounce.set(3, 3);}
+			else{
+				this.ball.body.bounce.set(.3, .3);
+
+			}
+
+
+	},
 	
 	collectButton: function() {
 		this.button.kill();
@@ -400,8 +422,8 @@ Ball.Level1.prototype = {
 
 	collectSpeedUp: function() {
 		this.speedUp.kill();
-		this.ball.body.velocity.x += 500;
-		this.ball.body.velocity.y += 500;
+		this.ball.body.velocity.x *= 10;
+		this.ball.body.velocity.y *= 10;
 		 		
 
 	},
