@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/escapeit",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
