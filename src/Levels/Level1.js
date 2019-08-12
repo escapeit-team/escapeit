@@ -3,7 +3,7 @@ Ball.Level1.prototype = {
 	create: function() {
 
 		//world its bigger than the initial bounds
-		this.game.world.setBounds(0, 0, 960, 1472); 
+		this.game.world.setBounds(0, 0, 480, 704); 
 
 		//The background
 		this.background = this.add.sprite(0, 0, 'screen-bg');
@@ -18,41 +18,13 @@ Ball.Level1.prototype = {
 		this.timer = 0;
 		this.totalTimer = 0;
 		this.level = 1;
-		this.maxLevels = 5;
+		this.maxLevels = 3;
 		this.movementForce = 10;
-		this.ballStartPos = { x: Ball._WIDTH*0.5 - 16, y: 450 };
+		this.ballStartPos = { x: 32, y: 32 };
 		this.lives = 3;
 
 
-		this.speedUp = this.add.sprite(300, 400, 'speedUp');
-		this.physics.enable(this.speedUp, Phaser.Physics.ARCADE);
-		this.speedUp.anchor.set(0.5);
-		this.speedUp.body.setSize(20, 20);
-
-		
-		this.buttonPressed = this.add.sprite(200-16, 400-16, 'buttonPressed'); 
-		this.button = this.add.sprite(200, 400, 'button');
-		this.physics.enable(this.button, Phaser.Physics.ARCADE);
-		this.button.anchor.set(0.5);
-		this.button.body.setSize(20, 20);
-		
-
-			
-		this.wallGroup = this.add.group();
-		this.wallGroup.enableBody = true;
-		this.wallGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		this.wall1 = this.wallGroup.create(200, 500, 'element-b');
-		this.wallGroup.setAll('body.immovable', true);
-
-		this.spikeGroup = this.add.group();
-		this.spikeGroup.enableBody = true;
-		this.spikeGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		this.spike1 = this.spikeGroup.create(200, 500-18, 'spikes');
-		this.spikeGroup.setAll('body.immovable', true);
-		
-
-
-		this.hole = this.add.sprite(Ball._WIDTH*0.5, 90, 'hole');
+		this.hole = this.add.sprite(32*13, 32, 'hole');
 		this.physics.enable(this.hole, Phaser.Physics.ARCADE);
 		this.hole.anchor.set(0.5);
 		this.hole.body.setSize(10, 10);
@@ -78,15 +50,15 @@ Ball.Level1.prototype = {
 		this.borderGroup.physicsBodyType = Phaser.Physics.ARCADE;
 		
 		this.borderH = this.borderGroup.create(0, this.game.world.height - 1, 'border-horizontal');
-		this.borderH.scale.setTo(3,1);
-		this.borderGroup.create(0, 0, 'border-horizontal');
+		this.borderH.scale.setTo(2,1);
+		this.borderH1 = this.borderGroup.create(0, 0, 'border-horizontal');
+		this.borderH1.scale.setTo(2,1);
 
 		this.borderV = this.borderGroup.create(0, 0, 'border-vertical');
-		this.borderV.scale.setTo(1,2.01);
+		this.borderV.scale.setTo(1,2);
 
-		this.borderV2 =this.borderGroup.create(0, 992, 'border-vertical');
-		this.borderV2.scale.setTo(1,2);
-		//this.borderGroup.create(Ball._WIDTH-2, 0, 'border-vertical');
+		this.borderV2 =this.borderGroup.create(479, 0, 'border-vertical');
+		this.borderV2.scale.setTo(1,2);	
 		this.borderGroup.setAll('body.immovable', true);
 		this.bounceSound = this.game.add.audio('audio-bounce');
 
@@ -99,188 +71,70 @@ Ball.Level1.prototype = {
 		this.levels = [];
 		this.levelData = [
 			[
-				{ x: 96, y: 224, t: 'w' },
+				{ x: 0 , y: 32*3, t: 'w' },
+				{ x: 32*4 , y: 32*3 , t: 'w' },
+				{ x: 32*2 , y: 32*7 , t: 'w' },
+				{ x: 32*6 , y: 32*7 , t: 'w' },
+				{ x: 32*7 , y: 32*13, t: 'w' },
+				{ x: 32*11 , y: 32*13 , t: 'w' },
+				{ x: 32*3 , y: 32*19 , t: 'w' },
+				{ x: 32*7 , y: 32*19 , t: 'w' },
+
+				{ x: 32*2 , y: 32*8 , t: 'h' },
+				{ x: 32*2 , y: 32*12 , t: 'h' },
+				{ x: 32*2 , y: 32*16 , t: 'h' },
+				{ x: 32*6 , y: 32*13 , t: 'h' },
+				{ x: 32*10 , y: 32*0 , t: 'h' },
+				{ x: 32*10 , y: 32*4 , t: 'h' },
+				{ x: 32*11 , y: 32*16 , t: 'h' },
 
 	
 
 			],
+			
 			[
-				//O meu Nível
-				{ x: 32*1 , y: 32*9 , t: 'w' },
-				{ x: 32*1 , y: 32*43 , t: 'w' },
-				{ x: 32*2 , y: 32*7 , t: 'w' },
-				{ x: 32*3 , y: 32*4 , t: 'w' },
-				{ x: 32*3 , y: 32*37 , t: 'w' },
-				{ x: 32*3 , y: 32*39 , t: 'w' },
-				{ x: 32*4 , y: 32*17 , t: 'w' },
-				{ x: 32*4 , y: 32*28 , t: 'w' },
-				{ x: 32*4 , y: 32*44 , t: 'w' },
-				{ x: 32*5 , y: 32*9 , t: 'w' },
-				{ x: 32*5 , y: 32*11 , t: 'w' },
-				{ x: 32*6 , y: 32*7 , t: 'w' },
-				{ x: 32*6 , y: 32*20 , t: 'w' },
-				{ x: 32*6 , y: 32*29 , t: 'w' },
-				{ x: 32*7 , y: 32*5 , t: 'w' },
-				{ x: 32*7 , y: 32*31 , t: 'w' },
-				{ x: 32*7 , y: 32*37 , t: 'w' },
-				{ x: 32*7 , y: 32*40 , t: 'w' },
-				{ x: 32*8 , y: 32*35 , t: 'w' },
-				{ x: 32*8 , y: 32*44 , t: 'w' },
-				{ x: 32*9 , y: 32*9 , t: 'w' },
-				{ x: 32*9 , y: 32*27 , t: 'w' },
-				{ x: 32*9 , y: 32*41 , t: 'w' },
-				{ x: 32*10 , y: 32*7 , t: 'w' },
-				{ x: 32*10 , y: 32*20 , t: 'w' },
-				{ x: 32*10 , y: 32*25 , t: 'w' },
-				{ x: 32*10 , y: 32*33 , t: 'w' },
-				{ x: 32*11 , y: 32*5 , t: 'w' },
-				{ x: 32*12 , y: 32*16 , t: 'w' },
-				{ x: 32*12 , y: 32*23 , t: 'w' },
-				{ x: 32*12 , y: 32*35 , t: 'w' },
-				{ x: 32*12 , y: 32*44 , t: 'w' },
-				{ x: 32*13 , y: 32*12 , t: 'w' },
-				{ x: 32*13 , y: 32*36 , t: 'w' },
-				{ x: 32*14 , y: 32*33 , t: 'w' },
-				{ x: 32*14 , y: 32*42 , t: 'w' },
-				{ x: 32*15 , y: 32*6 , t: 'w' },
-				{ x: 32*15 , y: 32*14 , t: 'w' },
-				{ x: 32*16 , y: 32*44 , t: 'w' },
-				{ x: 32*17 , y: 32*29 , t: 'w' },
-				{ x: 32*18 , y: 32*11 , t: 'w' },
-				{ x: 32*18 , y: 32*26 , t: 'w' },
-				{ x: 32*19 , y: 32*3 , t: 'w' },
-				{ x: 32*20 , y: 32*24 , t: 'w' },
-				{ x: 32*21 , y: 32*8 , t: 'w' },
-				{ x: 32*22 , y: 32*13 , t: 'w' },
-				{ x: 32*22 , y: 32*22 , t: 'w' },
-				{ x: 32*23 , y: 32*43 , t: 'w' },
-				{ x: 32*24 , y: 32*16 , t: 'w' },
-				{ x: 32*25 , y: 32*41 , t: 'w' },
-				{ x: 32*26 , y: 32*44 , t: 'w' },
-				
-				{ x: 32*0 , y: 32*12 , t: 'h' },
-				{ x: 32*0 , y: 32*22 , t: 'h' },
-				{ x: 32*0 , y: 32*31 , t: 'h' },
-				{ x: 32*1 , y: 32*0 , t: 'h' },
-				{ x: 32*1 , y: 32*4 , t: 'h' },
-				{ x: 32*1 , y: 32*11 , t: 'h' },
-				{ x: 32*1 , y: 32*17 , t: 'h' },
-				{ x: 32*1 , y: 32*24 , t: 'h' },
-				{ x: 32*1 , y: 32*35 , t: 'h' },
-				{ x: 32*2 , y: 32*10 , t: 'h' },
-				{ x: 32*2 , y: 32*20 , t: 'h' },
-				{ x: 32*2 , y: 32*39 , t: 'h' },
-				{ x: 32*3 , y: 32*0 , t: 'h' },
-				{ x: 32*3 , y: 32*15 , t: 'h' },				
-				{ x: 32*3 , y: 32*24 , t: 'h' },
-				{ x: 32*3 , y: 32*28 , t: 'h' },
-				{ x: 32*3 , y: 32*32 , t: 'h' },
-				{ x: 32*5 , y: 32*12 , t: 'h' },
-				{ x: 32*5 , y: 32*18 , t: 'h' },
-				{ x: 32*5 , y: 32*22 , t: 'h' },
-				{ x: 32*5 , y: 32*31 , t: 'h' },
-				{ x: 32*7 , y: 32*13 , t: 'h' },
-				{ x: 32*7 , y: 32*22 , t: 'h' },
-				{ x: 32*7 , y: 32*32 , t: 'h' },
-				{ x: 32*8 , y: 32*0 , t: 'h' },
-				{ x: 32*8 , y: 32*23 , t: 'h' },
-				{ x: 32*9 , y: 32*11 , t: 'h' },
-				{ x: 32*9 , y: 32*15 , t: 'h' },
-				{ x: 32*10 , y: 32*1 , t: 'h' },
-				{ x: 32*10 , y: 32*21 , t: 'h' },
-				{ x: 32*11 , y: 32*10 , t: 'h' },
-				{ x: 32*11 , y: 32*14 , t: 'h' },
-				{ x: 32*12 , y: 32*0 , t: 'h' },
-				{ x: 32*12 , y: 32*28 , t: 'h' },
-				{ x: 32*14 , y: 32*1 , t: 'h' },
-				{ x: 32*14 , y: 32*8 , t: 'h' },
-				{ x: 32*14 , y: 32*18 , t: 'h' },
-				{ x: 32*14 , y: 32*25 , t: 'h' },
-				{ x: 32*14 , y: 32*29 , t: 'h' },
-				{ x: 32*16 , y: 32*1 , t: 'h' },
-				{ x: 32*16 , y: 32*16 , t: 'h' },
-				{ x: 32*16 , y: 32*20 , t: 'h' },
-				{ x: 32*16 , y: 32*24 , t: 'h' },
-				{ x: 32*16 , y: 32*28 , t: 'h' },
-				{ x: 32*17 , y: 32*7 , t: 'h' },
-				{ x: 32*17 , y: 32*37 , t: 'h' },
-				{ x: 32*18 , y: 32*0 , t: 'h' },
-				{ x: 32*18 , y: 32*14 , t: 'h' },
-				{ x: 32*18 , y: 32*18 , t: 'h' },
-				{ x: 32*18 , y: 32*22 , t: 'h' },
-				{ x: 32*18 , y: 32*32 , t: 'h' },
-				{ x: 32*19 , y: 32*36 , t: 'h' },
-				{ x: 32*19 , y: 32*40 , t: 'h' },
-				{ x: 32*20 , y: 32*12 , t: 'h' },
-				{ x: 32*20 , y: 32*16 , t: 'h' },
-				{ x: 32*20 , y: 32*20 , t: 'h' },
-				{ x: 32*20 , y: 32*30 , t: 'h' },
-				{ x: 32*21 , y: 32*34 , t: 'h' },
-				{ x: 32*21 , y: 32*38 , t: 'h' },
-				{ x: 32*21 , y: 32*42 , t: 'h' },
-				{ x: 32*22 , y: 32*4 , t: 'h' },
-				{ x: 32*22 , y: 32*14 , t: 'h' },
-				{ x: 32*22 , y: 32*18 , t: 'h' },
-				{ x: 32*22 , y: 32*27 , t: 'h' },
-				{ x: 32*23 , y: 32*9 , t: 'h' },
-				{ x: 32*23 , y: 32*31 , t: 'h' },
-				{ x: 32*23 , y: 32*35 , t: 'h' },
-				{ x: 32*23 , y: 32*39 , t: 'h' },
-				{ x: 32*24 , y: 32*0 , t: 'h' },
-				{ x: 32*24 , y: 32*25 , t: 'h' },
-				{ x: 32*25 , y: 32*18 , t: 'h' },
-				{ x: 32*25 , y: 32*29 , t: 'h' },
-				{ x: 32*25 , y: 32*33 , t: 'h' },
-				{ x: 32*25 , y: 32*37 , t: 'h' },
-				{ x: 32*26 , y: 32*1 , t: 'h' },
-				{ x: 32*26 , y: 32*5 , t: 'h' },
-				{ x: 32*26 , y: 32*10 , t: 'h' },
-				{ x: 32*26 , y: 32*21 , t: 'h' },
-				{ x: 32*27 , y: 32*25 , t: 'h' },
-				{ x: 32*27 , y: 32*29 , t: 'h' },
-				{ x: 32*27 , y: 32*36 , t: 'h' },
-				{ x: 32*28 , y: 32*1 , t: 'h' },
-				{ x: 32*28 , y: 32*5 , t: 'h' },
-				{ x: 32*28 , y: 32*9 , t: 'h' },
-				{ x: 32*28 , y: 32*13 , t: 'h' },
-				{ x: 32*28 , y: 32*18 , t: 'h' },
-				{ x: 32*28 , y: 32*33 , t: 'h' },
-				
+				{ x: 0 , y: 32*11, t: 'w' },
+				{ x: 32*4 , y: 32*11 , t: 'w' },
+				{ x: 32*3 , y: 32*15 , t: 'w' },
+				{ x: 32*7 , y: 32*15 , t: 'w' },
 
-				
-				
-			
-		
-			],
-			
-			[
-				{ x: 72, y: 320, t: 'w' },
-				{ x: 200, y: 320, t: 'h' },
-				{ x: 72, y: 150, t: 'w' }
-			],
-			[
-				{ x: 64, y: 352, t: 'h' },
-				{ x: 224, y: 352, t: 'h' },
-				{ x: 0, y: 240, t: 'w' },
-				{ x: 128, y: 240, t: 'w' },
-				{ x: 200, y: 52, t: 'h' }
+				{ x: 32*3 , y: 0 , t: 'h' },
+				{ x: 32*3 , y: 32*4 , t: 'h' },
+				{ x: 32*3 , y: 32*16 , t: 'h' },
+				{ x: 32*6 , y: 32*18 , t: 'h' },
+				{ x: 32*7 , y: 32*3 , t: 'h' },
+				{ x: 32*7 , y: 32*7 , t: 'h' },
+				{ x: 32*9 , y: 32*16 , t: 'h' },
+				{ x: 32*11 , y: 32*0 , t: 'h' },
+				{ x: 32*11 , y: 32*4 , t: 'h' },
+				{ x: 32*11 , y: 32*8 , t: 'h' },
+				{ x: 32*11 , y: 32*12 , t: 'h' },
+				{ x: 32*12 , y: 32*18 , t: 'h' },
 			],
 			[
-				{ x: 78, y: 352, t: 'h' },
-				{ x: 78, y: 320, t: 'w' },
-				{ x: 0, y: 240, t: 'w' },
-				{ x: 192, y: 240, t: 'w' },
-				{ x: 30, y: 150, t: 'w' },
-				{ x: 158, y: 150, t: 'w' }
-			],
-			[
-				{ x: 188, y: 352, t: 'h' },
-				{ x: 92, y: 320, t: 'w' },
-				{ x: 0, y: 240, t: 'w' },
-				{ x: 128, y: 240, t: 'w' },
-				{ x: 256, y: 240, t: 'h' },
-				{ x: 180, y: 52, t: 'h' },
-				{ x: 52, y: 148, t: 'w' }
+				{ x: 32*4 , y: 32*3 , t: 'w' },
+				{ x: 32*8 , y: 32*3 , t: 'w' },
+				{ x: 32*5 , y: 32*7 , t: 'w' },
+				{ x: 32*4 , y: 32*10 , t: 'w' },
+				{ x: 32*6 , y: 32*13 , t: 'w' },
+				{ x: 32*3 , y: 32*16 , t: 'w' },
+				{ x: 32*1 , y: 32*19, t: 'w' },
+				{ x: 32*5 , y: 32*19 , t: 'w' },
+				{ x: 32*9 , y: 32*19 , t: 'w' },
+
+				{ x: 32*1 , y: 32*3 , t: 'h' },
+				{ x: 32*1 , y: 32*7 , t: 'h' },
+				{ x: 32*1 , y: 32*11 , t: 'h' },
+				{ x: 32*1 , y: 32*15 , t: 'h' },
+				{ x: 32*3 , y: 32*0 , t: 'h' },
+				{ x: 32*3 , y: 32*4 , t: 'h' },
+				{ x: 32*3 , y: 32*8 , t: 'h' },
+				{ x: 32*3 , y: 32*12 , t: 'h' },
+				{ x: 32*9 , y: 32*4 , t: 'h' },
+				{ x: 32*10 , y: 32*7 , t: 'h' },
+				{ x: 32*10 , y: 32*11 , t: 'h' },
+				{ x: 32*10 , y: 32*15 , t: 'h' },
+
 			]
 		];
 		for(var i=0; i<this.maxLevels; i++) {
@@ -368,46 +222,12 @@ Ball.Level1.prototype = {
 		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 
-		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
-		this.physics.arcade.collide(this.ball, this.spikeGroup, this.ballLives, null, this);
-
-			
-		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
-		this.physics.arcade.overlap(this.ball, this.speedUp, this.collectSpeedUp, null, this);
 
 
 		//Appear in the other side of the game
 		this.game.world.wrap(this.ball, 0, true);
 	},
 
-	ballLives: function() {
-		this.lives--;
-		if(this.lives) {
-			this.livesText.setText('Lives: '+this.lives);
-		}
-		else {
-			alert('You lost, game over!');
-			this.game.state.start('MainMenu');
-		}
-	},
-
-
-	
-	collectButton: function() {
-		this.button.kill();
-		this.wall1.destroy();
-		 		
-
-	},
-
-
-	collectSpeedUp: function() {
-		this.speedUp.kill();
-		this.ball.body.velocity.x *= 10;
-		this.ball.body.velocity.y *= 10;
-		 		
-
-	},
 
 	wallCollision: function() {
 		if(this.audioStatus) {
@@ -446,8 +266,7 @@ Ball.Level1.prototype = {
 			this.ball.body.velocity.x = 0;
 			this.ball.body.velocity.y = 0;
 			this.showLevel();
-			this.buttonPressed.kill();
-			this.spike1.kill();
+
 		}
 	},
 
@@ -457,5 +276,3 @@ Ball.Level1.prototype = {
 		 
 	}
 };
-
-
