@@ -23,10 +23,10 @@ Ball.Preloader.prototype = {
 		this.load.image('spikes', 'img/spikes.png');
 		this.load.image('speedUp', 'img/speedUp.png');
 		this.load.image('rebound', 'img/rebound.png');
+		this.load.image('hidden', 'img/hidden.png');
 
 
 		
-
 
 		this.load.spritesheet('lvlonebutton', 'img/1button.png', 40, 40);
 		this.load.spritesheet('lvltwobutton', 'img/2button.png', 40, 40);

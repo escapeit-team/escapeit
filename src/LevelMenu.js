@@ -10,7 +10,7 @@ Ball.LevelMenu.prototype = {
 		}
 	},
 	level1: function() {
-			this.game.state.start('Level1');
+			this.game.state.start('Howto');
 	},
 	level2: function() {
 			if(levelonecompleted === true) {
