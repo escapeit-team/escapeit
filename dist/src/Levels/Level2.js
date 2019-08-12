@@ -1,13 +1,13 @@
-Ball.Level2 = function(game) {};
-Ball.Level2.prototype = {
+Ball.Level1 = function(game) {};
+Ball.Level1.prototype = {
 	create: function() {
 
 		//world its bigger than the initial bounds
-		this.game.world.setBounds(0, 0, 960*3, 1472*3);
+		this.game.world.setBounds(0, 0, 480, 704); 
 
 		//The background
-		this.background = this.add.sprite(1200, 2200, 'screen-bg');
-		
+		this.background = this.add.sprite(0, 0, 'screen-bg');
+		this.background.scale.setTo(8,8);
 
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
@@ -19,21 +19,21 @@ Ball.Level2.prototype = {
 		this.totalTimer = 0;
 		this.level = 1;
 		this.maxLevels = 1;
-		this.movementForce = 20;
-		this.ballStartPos = { x: 1360, y: 2440 };
+		this.movementForce = 10;
+		this.ballStartPos = { x: Ball._WIDTH*0.5 - 32, y: 450 };
+		this.lives = 3;
 
 
 
-
-		this.hole = this.add.sprite(392, 1090, 'hole');
-		this.physics.enable(this.hole, Phaser.Physics.ARCADE);
+        this.hole = this.add.sprite(Ball._WIDTH*0.5, 90, 'hole');
+    	this.physics.enable(this.hole, Phaser.Physics.ARCADE);
 		this.hole.anchor.set(0.5);
-		this.hole.body.setSize(2, 2);
+		this.hole.body.setSize(10, 10);
 
 		this.ball = this.add.sprite(this.ballStartPos.x, this.ballStartPos.y, 'ball');
 		this.ball.anchor.set(0.5);
 		this.physics.enable(this.ball, Phaser.Physics.ARCADE);
-		this.ball.body.setSize(18, 18);
+		this.ball.body.setSize(25, 25);
 		this.ball.body.bounce.set(0.3, 0.3);
 
 		this.initLevels();
@@ -45,7 +45,23 @@ Ball.Level2.prototype = {
 
 		this.time.events.loop(Phaser.Timer.SECOND, this.updateCounter, this);
 
+		//Borders of the game
+		this.borderGroup = this.add.group();
+		this.borderGroup.enableBody = true;
+		this.borderGroup.physicsBodyType = Phaser.Physics.ARCADE;
+		
+		this.borderH = this.borderGroup.create(0, this.game.world.height - 1, 'border-horizontal');
+		this.borderH.scale.setTo(2,1);
+		this.borderH1 = this.borderGroup.create(0, 0, 'border-horizontal');
+		this.borderH1.scale.setTo(2,1);
 
+		this.borderV = this.borderGroup.create(0, 0, 'border-vertical');
+		this.borderV.scale.setTo(1,2);
+
+		this.borderV2 =this.borderGroup.create(479, 0, 'border-vertical');
+		this.borderV2.scale.setTo(1,2);	
+		this.borderGroup.setAll('body.immovable', true);
+		this.bounceSound = this.game.add.audio('audio-bounce');
 
 		//The camera follows the ball
 		this.game.camera.follow(this.ball);
@@ -56,10 +72,150 @@ Ball.Level2.prototype = {
 		this.levels = [];
 		this.levelData = [
 			[
+                { x: 32*1 , y: 32*9 , t: 'w' },
+				{ x: 32*1 , y: 32*43 , t: 'w' },
+				{ x: 32*2 , y: 32*7 , t: 'w' },
+				{ x: 32*3 , y: 32*4 , t: 'w' },
+				{ x: 32*3 , y: 32*37 , t: 'w' },
+				{ x: 32*3 , y: 32*39 , t: 'w' },
+				{ x: 32*4 , y: 32*17 , t: 'w' },
+				{ x: 32*4 , y: 32*28 , t: 'w' },
+				{ x: 32*4 , y: 32*44 , t: 'w' },
+				{ x: 32*5 , y: 32*9 , t: 'w' },
+				{ x: 32*5 , y: 32*11 , t: 'w' },
+				{ x: 32*6 , y: 32*7 , t: 'w' },
+				{ x: 32*6 , y: 32*20 , t: 'w' },
+				{ x: 32*6 , y: 32*29 , t: 'w' },
+				{ x: 32*7 , y: 32*5 , t: 'w' },
+				{ x: 32*7 , y: 32*31 , t: 'w' },
+				{ x: 32*7 , y: 32*37 , t: 'w' },
+				{ x: 32*7 , y: 32*40 , t: 'w' },
+				{ x: 32*8 , y: 32*35 , t: 'w' },
+				{ x: 32*8 , y: 32*44 , t: 'w' },
+				{ x: 32*9 , y: 32*9 , t: 'w' },
+				{ x: 32*9 , y: 32*27 , t: 'w' },
+				{ x: 32*9 , y: 32*41 , t: 'w' },
+				{ x: 32*10 , y: 32*7 , t: 'w' },
+				{ x: 32*10 , y: 32*20 , t: 'w' },
+				{ x: 32*10 , y: 32*25 , t: 'w' },
+				{ x: 32*10 , y: 32*33 , t: 'w' },
+				{ x: 32*11 , y: 32*5 , t: 'w' },
+				{ x: 32*12 , y: 32*16 , t: 'w' },
+				{ x: 32*12 , y: 32*23 , t: 'w' },
+				{ x: 32*12 , y: 32*35 , t: 'w' },
+				{ x: 32*12 , y: 32*44 , t: 'w' },
+				{ x: 32*13 , y: 32*12 , t: 'w' },
+				{ x: 32*13 , y: 32*36 , t: 'w' },
+				{ x: 32*14 , y: 32*33 , t: 'w' },
+				{ x: 32*14 , y: 32*42 , t: 'w' },
+				{ x: 32*15 , y: 32*6 , t: 'w' },
+				{ x: 32*15 , y: 32*14 , t: 'w' },
+				{ x: 32*16 , y: 32*44 , t: 'w' },
+				{ x: 32*17 , y: 32*29 , t: 'w' },
+				{ x: 32*18 , y: 32*11 , t: 'w' },
+				{ x: 32*18 , y: 32*26 , t: 'w' },
+				{ x: 32*19 , y: 32*3 , t: 'w' },
+				{ x: 32*20 , y: 32*24 , t: 'w' },
+				{ x: 32*21 , y: 32*8 , t: 'w' },
+				{ x: 32*22 , y: 32*13 , t: 'w' },
+				{ x: 32*22 , y: 32*22 , t: 'w' },
+				{ x: 32*23 , y: 32*43 , t: 'w' },
+				{ x: 32*24 , y: 32*16 , t: 'w' },
+				{ x: 32*25 , y: 32*41 , t: 'w' },
+				{ x: 32*26 , y: 32*44 , t: 'w' },
+				
+				{ x: 32*0 , y: 32*12 , t: 'h' },
+				{ x: 32*0 , y: 32*22 , t: 'h' },
+				{ x: 32*0 , y: 32*31 , t: 'h' },
+				{ x: 32*1 , y: 32*0 , t: 'h' },
+				{ x: 32*1 , y: 32*4 , t: 'h' },
+				{ x: 32*1 , y: 32*11 , t: 'h' },
+				{ x: 32*1 , y: 32*17 , t: 'h' },
+				{ x: 32*1 , y: 32*24 , t: 'h' },
+				{ x: 32*1 , y: 32*35 , t: 'h' },
+				{ x: 32*2 , y: 32*10 , t: 'h' },
+				{ x: 32*2 , y: 32*20 , t: 'h' },
+				{ x: 32*2 , y: 32*39 , t: 'h' },
+				{ x: 32*3 , y: 32*0 , t: 'h' },
+				{ x: 32*3 , y: 32*15 , t: 'h' },				
+				{ x: 32*3 , y: 32*24 , t: 'h' },
+				{ x: 32*3 , y: 32*28 , t: 'h' },
+				{ x: 32*3 , y: 32*32 , t: 'h' },
+				{ x: 32*5 , y: 32*12 , t: 'h' },
+				{ x: 32*5 , y: 32*18 , t: 'h' },
+				{ x: 32*5 , y: 32*22 , t: 'h' },
+				{ x: 32*5 , y: 32*31 , t: 'h' },
+				{ x: 32*7 , y: 32*13 , t: 'h' },
+				{ x: 32*7 , y: 32*22 , t: 'h' },
+				{ x: 32*7 , y: 32*32 , t: 'h' },
+				{ x: 32*8 , y: 32*0 , t: 'h' },
+				{ x: 32*8 , y: 32*23 , t: 'h' },
+				{ x: 32*9 , y: 32*11 , t: 'h' },
+				{ x: 32*9 , y: 32*15 , t: 'h' },
+				{ x: 32*10 , y: 32*1 , t: 'h' },
+				{ x: 32*10 , y: 32*21 , t: 'h' },
+				{ x: 32*11 , y: 32*10 , t: 'h' },
+				{ x: 32*11 , y: 32*14 , t: 'h' },
+				{ x: 32*12 , y: 32*0 , t: 'h' },
+				{ x: 32*12 , y: 32*28 , t: 'h' },
+				{ x: 32*14 , y: 32*1 , t: 'h' },
+				{ x: 32*14 , y: 32*8 , t: 'h' },
+				{ x: 32*14 , y: 32*18 , t: 'h' },
+				{ x: 32*14 , y: 32*25 , t: 'h' },
+				{ x: 32*14 , y: 32*29 , t: 'h' },
+				{ x: 32*16 , y: 32*1 , t: 'h' },
+				{ x: 32*16 , y: 32*16 , t: 'h' },
+				{ x: 32*16 , y: 32*20 , t: 'h' },
+				{ x: 32*16 , y: 32*24 , t: 'h' },
+				{ x: 32*16 , y: 32*28 , t: 'h' },
+				{ x: 32*17 , y: 32*7 , t: 'h' },
+				{ x: 32*17 , y: 32*37 , t: 'h' },
+				{ x: 32*18 , y: 32*0 , t: 'h' },
+				{ x: 32*18 , y: 32*14 , t: 'h' },
+				{ x: 32*18 , y: 32*18 , t: 'h' },
+				{ x: 32*18 , y: 32*22 , t: 'h' },
+				{ x: 32*18 , y: 32*32 , t: 'h' },
+				{ x: 32*19 , y: 32*36 , t: 'h' },
+				{ x: 32*19 , y: 32*40 , t: 'h' },
+				{ x: 32*20 , y: 32*12 , t: 'h' },
+				{ x: 32*20 , y: 32*16 , t: 'h' },
+				{ x: 32*20 , y: 32*20 , t: 'h' },
+				{ x: 32*20 , y: 32*30 , t: 'h' },
+				{ x: 32*21 , y: 32*34 , t: 'h' },
+				{ x: 32*21 , y: 32*38 , t: 'h' },
+				{ x: 32*21 , y: 32*42 , t: 'h' },
+				{ x: 32*22 , y: 32*4 , t: 'h' },
+				{ x: 32*22 , y: 32*14 , t: 'h' },
+				{ x: 32*22 , y: 32*18 , t: 'h' },
+				{ x: 32*22 , y: 32*27 , t: 'h' },
+				{ x: 32*23 , y: 32*9 , t: 'h' },
+				{ x: 32*23 , y: 32*31 , t: 'h' },
+				{ x: 32*23 , y: 32*35 , t: 'h' },
+				{ x: 32*23 , y: 32*39 , t: 'h' },
+				{ x: 32*24 , y: 32*0 , t: 'h' },
+				{ x: 32*24 , y: 32*25 , t: 'h' },
+				{ x: 32*25 , y: 32*18 , t: 'h' },
+				{ x: 32*25 , y: 32*29 , t: 'h' },
+				{ x: 32*25 , y: 32*33 , t: 'h' },
+				{ x: 32*25 , y: 32*37 , t: 'h' },
+				{ x: 32*26 , y: 32*1 , t: 'h' },
+				{ x: 32*26 , y: 32*5 , t: 'h' },
+				{ x: 32*26 , y: 32*10 , t: 'h' },
+				{ x: 32*26 , y: 32*21 , t: 'h' },
+				{ x: 32*27 , y: 32*25 , t: 'h' },
+				{ x: 32*27 , y: 32*29 , t: 'h' },
+				{ x: 32*27 , y: 32*36 , t: 'h' },
+				{ x: 32*28 , y: 32*1 , t: 'h' },
+				{ x: 32*28 , y: 32*5 , t: 'h' },
+				{ x: 32*28 , y: 32*9 , t: 'h' },
+				{ x: 32*28 , y: 32*13 , t: 'h' },
+				{ x: 32*28 , y: 32*18 , t: 'h' },
+				{ x: 32*28 , y: 32*33 , t: 'h' },
 				
 
-			],
+				
 
+			]
 		];
 		for(var i=0; i<this.maxLevels; i++) {
 			var newLevel = this.add.group();
@@ -90,12 +246,16 @@ Ball.Level2.prototype = {
 		
 		//this.panel = this.add.sprite(0, 0, 'panel');
 		//this.panel.fixedToCamera = true;
-		this.timerText = this.game.add.text(15, 15, "Time: "+this.timer, this.fontBig);
+		this.timerText = this.game.add.text(-150, 15, "Time: "+this.timer, this.fontBig);
 		this.timerText.fixedToCamera = true; 
 		this.levelText = this.game.add.text(120, 10, "Level: "+this.level+" / "+this.maxLevels, this.fontSmall);
 		this.levelText.fixedToCamera = true; 
 		this.totalTimeText = this.game.add.text(120, 30, "Total time: "+this.totalTimer, this.fontSmall);
 		this.totalTimeText.fixedToCamera = true;
+
+		this.livesText = this.game.add.text(15, 15, "Lives: "+this.lives, this.fontBig);
+		this.livesText.fixedToCamera = true; 
+
 		
 
 	},
@@ -136,30 +296,18 @@ Ball.Level2.prototype = {
 			this.ball.body.velocity.y -= this.movementForce;
 		}
 		else if(this.keys.down.isDown) {
-            this.ball.body.velocity.y += this.movementForce;
-        }
+			this.ball.body.velocity.y += this.movementForce;
+		}
 		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 
 
-		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
-		
-		
-		this.physics.arcade.overlap(this.ball, this.key, this.collectKey, null, this);
 
 		//Appear in the other side of the game
 		this.game.world.wrap(this.ball, 0, true);
 	},
-	
-	collectKey: function() {
-		this.key.kill();
-		this.wall1.kill();
-		
-		
 
-	},
-	
 
 	wallCollision: function() {
 		if(this.audioStatus) {
@@ -181,6 +329,7 @@ Ball.Level2.prototype = {
 	finishLevel: function() {
 		if(this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
+			levelonecompleted = true;
 			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
 			this.game.state.start('LevelMenu');
 		}
@@ -197,6 +346,7 @@ Ball.Level2.prototype = {
 			this.ball.body.velocity.x = 0;
 			this.ball.body.velocity.y = 0;
 			this.showLevel();
+
 		}
 	},
 
@@ -206,5 +356,3 @@ Ball.Level2.prototype = {
 		 
 	}
 };
-
-
