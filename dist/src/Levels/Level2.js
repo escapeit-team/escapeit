@@ -52,7 +52,7 @@ Ball.Level2.prototype = {
 		
 		this.borderH = this.borderGroup.create(0, this.game.world.height - 1, 'border-horizontal');
 		this.borderH.scale.setTo(3,1);
-		this.borderGroup.create(0, 0, 'border-horizontal');
+		//this.borderGroup.create(0, 0, 'border-horizontal');
 
 		this.borderV = this.borderGroup.create(0, 0, 'border-vertical');
 		this.borderV.scale.setTo(1,2.01);

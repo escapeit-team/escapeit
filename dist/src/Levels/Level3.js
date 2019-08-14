@@ -143,22 +143,10 @@ Ball.Level3.prototype = {
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 
 
-		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
-		
-		
-		this.physics.arcade.overlap(this.ball, this.key, this.collectKey, null, this);
-
 		//Appear in the other side of the game
 		this.game.world.wrap(this.ball, 0, true);
 	},
 	
-	collectKey: function() {
-		this.key.kill();
-		this.wall1.kill();
-		
-		
-
-	},
 	
 
 	wallCollision: function() {
