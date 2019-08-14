@@ -124,15 +124,6 @@ Ball.Level0.prototype = {
 				{ x: 30, y: 150, t: 'w' },
 				{ x: 158, y: 150, t: 'w' }
 			],
-			[
-				{ x: 188, y: 352, t: 'h' },
-				{ x: 92, y: 320, t: 'w' },
-				{ x: 0, y: 240, t: 'w' },
-				{ x: 128, y: 240, t: 'w' },
-				{ x: 256, y: 240, t: 'h' },
-				{ x: 180, y: 52, t: 'h' },
-				{ x: 52, y: 148, t: 'w' }
-			]
 		];
 		for(var i=0; i<this.maxLevels; i++) {
 			var newLevel = this.add.group();
@@ -281,6 +272,7 @@ Ball.Level0.prototype = {
 		if(this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
 			levelonecompleted = true;
+			leveltwocompleted = true;
 			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
 			this.game.state.start('MainMenu');
 		}
