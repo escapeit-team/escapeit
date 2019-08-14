@@ -13,11 +13,12 @@ Ball.MainMenu.prototype = {
 
 		// button to "read the article"
 	},
-	testLevel0: function() {
-		this.game.state.start('Level0');
-},
 
 	startGame: function() {
 		this.game.state.start('LevelMenu');
+	},
+	
+	testLevel0: function() {
+		this.game.state.start('Level0');
 	}
 };

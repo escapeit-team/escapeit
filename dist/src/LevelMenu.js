@@ -9,7 +9,7 @@ Ball.LevelMenu.prototype = {
 			this.level2Button.input.useHandCursor = true;
 		}
 		if(leveltwocompleted === true) {
-			this.level3Button = this.add.button(120, 50, 'lvlthreebutton', this.level3, this);
+			this.level3Button = this.add.button(50, 100, 'lvlthreebutton', this.level3, this);
 			this.level3Button.input.useHandCursor = true;
 		}
 	},
