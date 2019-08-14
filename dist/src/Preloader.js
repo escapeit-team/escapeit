@@ -24,12 +24,15 @@ Ball.Preloader.prototype = {
 		this.load.image('speedUp', 'img/speedUp.png');
 		this.load.image('rebound', 'img/rebound.png');
 		this.load.image('hidden', 'img/hidden.png');
-
+		this.load.image('lvlonebutton', 'img/1button.png');
+		this.load.image('lvltwobutton', 'img/2button.png');
+		this.load.image('lvlthreebutton', 'img/3button.png');
+		this.load.image('lvlfourbutton', 'img/4button.png');
+		this.load.image('lvlfivebutton', 'img/5button.png');
 
 		
 
-		this.load.spritesheet('lvlonebutton', 'img/1button.png', 40, 40);
-		this.load.spritesheet('lvltwobutton', 'img/2button.png', 40, 40);
+
 		this.load.spritesheet('button-audio', 'img/button-audio.png', 35, 35);
 		this.load.spritesheet('button-start', 'img/button-start.png', 146, 51);
 

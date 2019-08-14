@@ -1,5 +1,5 @@
-Ball.Level1 = function(game) {};
-Ball.Level1.prototype = {
+Ball.Level2 = function(game) {};
+Ball.Level2.prototype = {
 	create: function() {
 
 		//world its bigger than the initial bounds
@@ -329,7 +329,7 @@ Ball.Level1.prototype = {
 	finishLevel: function() {
 		if(this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
-			levelonecompleted = true;
+			leveltwocompleted = true;
 			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
 			this.game.state.start('LevelMenu');
 		}

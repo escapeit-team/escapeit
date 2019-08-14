@@ -1,5 +1,5 @@
-Ball.Level2 = function(game) {};
-Ball.Level2.prototype = {
+Ball.Level3 = function(game) {};
+Ball.Level3.prototype = {
 	create: function() {
 
 		//world its bigger than the initial bounds

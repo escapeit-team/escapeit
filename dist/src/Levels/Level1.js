@@ -24,7 +24,7 @@ Ball.Level1.prototype = {
 		this.lives = 3;
 
 
-		this.hole = this.add.sprite(32*13, 32, 'hole');
+		this.hole = this.add.sprite(32*13, 64, 'hole');
 		this.physics.enable(this.hole, Phaser.Physics.ARCADE);
 		this.hole.anchor.set(0.5);
 		this.hole.body.setSize(10, 10);
