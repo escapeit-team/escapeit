@@ -170,7 +170,7 @@ Ball.Level3.prototype = {
 		if(this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
 			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
-			this.game.state.start('LevelMenu');
+			this.game.state.start('MainMenu');
 		}
 		else {
 			alert('Congratulations, level '+this.level+' completed!');
