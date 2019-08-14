@@ -3,7 +3,7 @@ Ball.Level2.prototype = {
 	create: function() {
 
 		//world its bigger than the initial bounds
-		this.game.world.setBounds(0, 0, 480, 704); 
+		this.game.world.setBounds(0, 0, 960, 1472); 
 
 		//The background
 		this.background = this.add.sprite(0, 0, 'screen-bg');
@@ -51,15 +51,15 @@ Ball.Level2.prototype = {
 		this.borderGroup.physicsBodyType = Phaser.Physics.ARCADE;
 		
 		this.borderH = this.borderGroup.create(0, this.game.world.height - 1, 'border-horizontal');
-		this.borderH.scale.setTo(2,1);
-		this.borderH1 = this.borderGroup.create(0, 0, 'border-horizontal');
-		this.borderH1.scale.setTo(2,1);
+		this.borderH.scale.setTo(3,1);
+		this.borderGroup.create(0, 0, 'border-horizontal');
 
 		this.borderV = this.borderGroup.create(0, 0, 'border-vertical');
-		this.borderV.scale.setTo(1,2);
+		this.borderV.scale.setTo(1,2.01);
 
-		this.borderV2 =this.borderGroup.create(479, 0, 'border-vertical');
-		this.borderV2.scale.setTo(1,2);	
+		this.borderV2 =this.borderGroup.create(0, 992, 'border-vertical');
+		this.borderV2.scale.setTo(1,2);
+		//this.borderGroup.create(Ball._WIDTH-2, 0, 'border-vertical');
 		this.borderGroup.setAll('body.immovable', true);
 		this.bounceSound = this.game.add.audio('audio-bounce');
 
