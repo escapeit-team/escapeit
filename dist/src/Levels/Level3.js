@@ -115,6 +115,7 @@ Ball.Level3.prototype = {
 		this.game.paused = true;
 		var pausedText = this.add.text(Ball._WIDTH*0.5, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
 		pausedText.anchor.set(0.5);
+		this.pausedText.fixedToCamera = true;
 		this.input.onDown.add(function(){
 			pausedText.destroy();
 			this.game.paused = false;

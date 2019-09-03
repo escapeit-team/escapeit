@@ -275,6 +275,7 @@ Ball.Level2.prototype = {
 		this.game.paused = true;
 		var pausedText = this.add.text(Ball._WIDTH*0.5, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
 		pausedText.anchor.set(0.5);
+		this.pausedText.fixedToCamera = true;
 		this.input.onDown.add(function(){
 			pausedText.destroy();
 			this.game.paused = false;
@@ -309,7 +310,7 @@ Ball.Level2.prototype = {
 	},
 
 
-	wallCollision: function() {
+	/*wallCollision: function() {
 		if(this.audioStatus) {
 			this.bounceSound.play();
 		}
@@ -317,7 +318,7 @@ Ball.Level2.prototype = {
 		if("vibrate" in window.navigator) {
 			window.navigator.vibrate(100);
 		}
-	},
+	},*/
 	handleOrientation: function(e) {
 		// Device Orientation API
 		var x = e.gamma; // range [-90,90], left-right
