@@ -219,8 +219,7 @@ Ball.Level1.prototype = {
 		else if(this.keys.down.isDown) {
 			this.ball.body.velocity.y += this.movementForce;
 		}
-		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
-		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
+		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.makeSound, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 
 
@@ -230,7 +229,7 @@ Ball.Level1.prototype = {
 	},
 
 
-	/*wallCollision: function() {
+	makeSound: function() {
 		if(this.audioStatus) {
 			this.bounceSound.play();
 		}
@@ -238,7 +237,7 @@ Ball.Level1.prototype = {
 		if("vibrate" in window.navigator) {
 			window.navigator.vibrate(100);
 		}
-	},*/
+	},
 	handleOrientation: function(e) {
 		// Device Orientation API
 		var x = e.gamma; // range [-90,90], left-right
