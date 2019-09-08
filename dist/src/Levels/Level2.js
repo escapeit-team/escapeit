@@ -9,6 +9,8 @@ Ball.Level2.prototype = {
 		this.background = this.add.sprite(0, 0, 'screen-bg');
 		this.background.scale.setTo(8,8);
 
+		this.buttonText = this.add.sprite(32*5, 32*40, 'buttonText');
+
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		this.fontSmall = { font: "16px Arial", fill: "#e4beef" };
@@ -23,7 +25,11 @@ Ball.Level2.prototype = {
 		this.ballStartPos = { x: Ball._WIDTH*0.5 - 32, y: 450 };
 		this.lives = 3;
 
-
+		this.buttonPressed = this.add.sprite(32*3-16, 32*44-16, 'buttonPressed'); 
+		this.button = this.add.sprite(32*3, 32*41, 'button');
+		this.physics.enable(this.button, Phaser.Physics.ARCADE);
+		this.button.anchor.set(0.5);
+		this.button.body.setSize(20, 20);
 
         this.hole = this.add.sprite(Ball._WIDTH*0.5, 90, 'hole');
     	this.physics.enable(this.hole, Phaser.Physics.ARCADE);
@@ -35,12 +41,6 @@ Ball.Level2.prototype = {
 		this.physics.enable(this.ball, Phaser.Physics.ARCADE);
 		this.ball.body.setSize(20, 20);
 		this.ball.body.bounce.set(0.3, 0.3);
-
-		this.buttonPressed = this.add.sprite(32*3-16, 32*44-16, 'buttonPressed'); 
-		this.button = this.add.sprite(32*3, 32*44, 'button');
-		this.physics.enable(this.button, Phaser.Physics.ARCADE);
-		this.button.anchor.set(0.5);
-		this.button.body.setSize(20, 20);
 
 		this.wallGroup = this.add.group();
 		this.wallGroup.enableBody = true;

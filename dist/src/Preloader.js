@@ -20,6 +20,7 @@ Ball.Preloader.prototype = {
 		this.load.image('element-b', 'img/element-b.png');
 		this.load.image('button', 'img/button.png');
 		this.load.image('buttonPressed', 'img/button-pressed.png');
+		this.load.image('buttonText', 'img/button-text.png');
 		this.load.image('spikes', 'img/spikes.png');
 		this.load.image('speedUp', 'img/speedUp.png');
 		this.load.image('rebound', 'img/rebound.png');
