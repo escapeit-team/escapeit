@@ -42,10 +42,11 @@ Ball.Level2.prototype = {
 		this.button.anchor.set(0.5);
 		this.button.body.setSize(20, 20);
 
-		this.wall1.enableBody = true;
-		this.wall1.physicsBodyType = Phaser.Physics.ARCADE;
-		this.wall1.create(32*28, 32*11, 'element-w');
-		this.wall1.setAll('body.immovable', true);
+		this.wallGroup = this.add.group();
+		this.wallGroup.enableBody = true;
+		this.wallGroup.physicsBodyType = Phaser.Physics.ARCADE;
+		this.wall1 = this.wallGroup.create(32*28, 32*11, 'element-w');
+		this.wallGroup.setAll('body.immovable', true);
 
 		this.initLevels();
 		this.showLevel(1);
@@ -373,7 +374,7 @@ Ball.Level2.prototype = {
 
 	collectButton: function() {
 		this.button.kill();
-		this.wall1.destroy();
+		this.wall1.kill();
 
 	},
 
