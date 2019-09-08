@@ -33,7 +33,7 @@ Ball.Level3.prototype = {
 		this.ball = this.add.sprite(this.ballStartPos.x, this.ballStartPos.y, 'ball');
 		this.ball.anchor.set(0.5);
 		this.physics.enable(this.ball, Phaser.Physics.ARCADE);
-		this.ball.body.setSize(18, 18);
+		this.ball.body.setSize(25, 25);
 		this.ball.body.bounce.set(0.3, 0.3);
 
 		this.initLevels();

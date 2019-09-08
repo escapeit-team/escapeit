@@ -33,8 +33,19 @@ Ball.Level2.prototype = {
 		this.ball = this.add.sprite(this.ballStartPos.x, this.ballStartPos.y, 'ball');
 		this.ball.anchor.set(0.5);
 		this.physics.enable(this.ball, Phaser.Physics.ARCADE);
-		this.ball.body.setSize(25, 25);
+		this.ball.body.setSize(20, 20);
 		this.ball.body.bounce.set(0.3, 0.3);
+
+		this.buttonPressed = this.add.sprite(32*3-16, 32*44-16, 'buttonPressed'); 
+		this.button = this.add.sprite(32*3, 32*44, 'button');
+		this.physics.enable(this.button, Phaser.Physics.ARCADE);
+		this.button.anchor.set(0.5);
+		this.button.body.setSize(20, 20);
+
+		this.wall1.enableBody = true;
+		this.wall1.physicsBodyType = Phaser.Physics.ARCADE;
+		this.wall1.create(32*28, 32*11, 'element-w');
+		this.wall1.setAll('body.immovable', true);
 
 		this.initLevels();
 		this.showLevel(1);
@@ -80,7 +91,6 @@ Ball.Level2.prototype = {
 				{ x: 32*16 , y: 32*11 , t: 'w' },
 				{ x: 32*20 , y: 32*11 , t: 'w' },
 				{ x: 32*24 , y: 32*11 , t: 'w' },
-				{ x: 32*28 , y: 32*11 , t: 'w' },
 				{ x: 32*0 , y: 32*16 , t: 'w' },
 				{ x: 32*4 , y: 32*16 , t: 'w' },
 				{ x: 32*8 , y: 32*16 , t: 'w' },
@@ -88,8 +98,6 @@ Ball.Level2.prototype = {
 				{ x: 32*16 , y: 32*16 , t: 'w' },
 				{ x: 32*20 , y: 32*16 , t: 'w' },
 				{ x: 32*24 , y: 32*16 , t: 'w' },
-				{ x: 32*28 , y: 32*16 , t: 'w' },
-				{ x: 32*0 , y: 32*21 , t: 'w' },
 				{ x: 32*4 , y: 32*21 , t: 'w' },
 				{ x: 32*8 , y: 32*21 , t: 'w' },
 				{ x: 32*12 , y: 32*21, t: 'w' },
@@ -104,8 +112,6 @@ Ball.Level2.prototype = {
 				{ x: 32*16 , y: 32*26 , t: 'w' },
 				{ x: 32*20 , y: 32*26 , t: 'w' },
 				{ x: 32*24 , y: 32*26 , t: 'w' },
-				{ x: 32*28 , y: 32*26 , t: 'w' },
-				{ x: 32*0 , y: 32*31 , t: 'w' },
 				{ x: 32*4 , y: 32*31 , t: 'w' },
 				{ x: 32*8 , y: 32*31 , t: 'w' },
 				{ x: 32*12 , y: 32*31, t: 'w' },
@@ -120,7 +126,6 @@ Ball.Level2.prototype = {
 				{ x: 32*16 , y: 32*36 , t: 'w' },
 				{ x: 32*20 , y: 32*36 , t: 'w' },
 				{ x: 32*24 , y: 32*36 , t: 'w' },
-				{ x: 32*28 , y: 32*36 , t: 'w' },
 
 				
 
@@ -332,7 +337,7 @@ Ball.Level2.prototype = {
 		pausedText.anchor.set(0.5);
 		this.pausedText.fixedToCamera = true;
 		this.input.onDown.add(function(){
-			pausedText.destroy();
+			pausedText.kill();
 			this.game.paused = false;
 		}, this);
 	},
@@ -357,6 +362,7 @@ Ball.Level2.prototype = {
 		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
+		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
 
 
 
@@ -364,6 +370,12 @@ Ball.Level2.prototype = {
 		this.game.world.wrap(this.ball, 0, true);
 	},
 
+
+	collectButton: function() {
+		this.button.kill();
+		this.wall1.destroy();
+
+	},
 
 	/*wallCollision: function() {
 		if(this.audioStatus) {
