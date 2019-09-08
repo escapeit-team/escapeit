@@ -25,8 +25,8 @@ Ball.Level2.prototype = {
 		this.ballStartPos = { x: Ball._WIDTH*0.5 - 32, y: 450 };
 		this.lives = 3;
 
-		this.buttonPressed = this.add.sprite(32*3-16, 32*44-16, 'buttonPressed'); 
-		this.button = this.add.sprite(32*3, 32*41, 'button');
+		this.buttonPressed = this.add.sprite(32*4-16, 32*42-16, 'buttonPressed'); 
+		this.button = this.add.sprite(32*4, 32*42, 'button');
 		this.physics.enable(this.button, Phaser.Physics.ARCADE);
 		this.button.anchor.set(0.5);
 		this.button.body.setSize(20, 20);
