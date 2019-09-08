@@ -360,7 +360,8 @@ Ball.Level2.prototype = {
 		else if(this.keys.down.isDown) {
 			this.ball.body.velocity.y += this.movementForce;
 		}
-		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.makeSound, null, this);
+		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
+		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
 
@@ -374,11 +375,10 @@ Ball.Level2.prototype = {
 	collectButton: function() {
 		this.button.kill();
 		this.wall1.kill();
-		this.makeSound();
 
 	},
 
-	makeSound: function() {
+	/*wallCollision: function() {
 		if(this.audioStatus) {
 			this.bounceSound.play();
 		}
@@ -386,7 +386,7 @@ Ball.Level2.prototype = {
 		if("vibrate" in window.navigator) {
 			window.navigator.vibrate(100);
 		}
-	},
+	},*/
 	handleOrientation: function(e) {
 		// Device Orientation API
 		var x = e.gamma; // range [-90,90], left-right
