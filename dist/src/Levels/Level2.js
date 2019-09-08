@@ -9,7 +9,7 @@ Ball.Level2.prototype = {
 		this.background = this.add.sprite(0, 0, 'screen-bg');
 		this.background.scale.setTo(8,8);
 
-		this.buttonText = this.add.sprite(32*3, 32*39, 'buttonText');
+		this.buttonText = this.add.sprite(32*3, 32*39-16, 'buttonText');
 
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
@@ -39,7 +39,7 @@ Ball.Level2.prototype = {
 		this.ball = this.add.sprite(this.ballStartPos.x, this.ballStartPos.y, 'ball');
 		this.ball.anchor.set(0.5);
 		this.physics.enable(this.ball, Phaser.Physics.ARCADE);
-		this.ball.body.setSize(20, 20);
+		this.ball.body.setSize(25, 25);
 		this.ball.body.bounce.set(0.3, 0.3);
 
 		this.wallGroup = this.add.group();
@@ -415,6 +415,8 @@ Ball.Level2.prototype = {
 			this.ball.body.velocity.x = 0;
 			this.ball.body.velocity.y = 0;
 			this.showLevel();
+			this.buttonText.kill();
+			this.buttonPressed.kill();
 
 		}
 	},
