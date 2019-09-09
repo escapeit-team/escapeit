@@ -9,7 +9,7 @@ Ball.Level2.prototype = {
 		this.background = this.add.sprite(0, 0, 'screen-bg');
 		this.background.scale.setTo(8,8);
 
-		this.buttonText = this.add.sprite(32*3, 32*39-16, 'buttonText');
+		this.buttonText = this.add.sprite(32*3, 32*38, 'buttonText');
 
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
