@@ -3,7 +3,7 @@ Ball.Level0.prototype = {
 	create: function() {
 
 		//world its bigger than the initial bounds
-		this.game.world.setBounds(-100, -100, 960, 1472); 
+		this.game.world.setBounds(0, 0, 960, 1472); 
 
 		//The background
 		this.background = this.add.sprite(0, 0, 'screen-bg');
@@ -21,7 +21,7 @@ Ball.Level0.prototype = {
 		this.maxLevels = 3;
 		this.movementForce = 10;
 		this.ballStartPos = { x: Ball._WIDTH*0.5 - 16, y: 450 };
-		this.lives = 10;
+		this.lives = 3;
 
 
 		this.speedUp = this.add.sprite(300, 400, 'speedUp');
