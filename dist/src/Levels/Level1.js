@@ -21,7 +21,7 @@ Ball.Level1.prototype = {
 		this.maxLevels = 3;
 		this.movementForce = 10;
 		this.ballStartPos = { x: 40, y: 32 };
-		lives;
+		this.lives;
 
 
 		this.hole = this.add.sprite(32*13, 64, 'hole');
