@@ -21,7 +21,7 @@ Ball.Level1.prototype = {
 		this.maxLevels = 3;
 		this.movementForce = 10;
 		this.ballStartPos = { x: 40, y: 32 };
-		this.lives = 4;
+		this.lives = 3;
 
 
 		this.hole = this.add.sprite(32*13, 64, 'hole');
@@ -193,8 +193,9 @@ Ball.Level1.prototype = {
 	},
 	managePause: function() {
 		this.game.paused = true;
-		this.pausedText = this.game.add.text(100, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
+		this.pausedText = this.add.text(Ball._WIDTH*0.5, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
 		this.pausedText.fixedToCamera = true;
+		pausedText.anchor.set(0.5);
 		this.input.onDown.add(function(){
 			pausedText.kill();
 			this.game.paused = false;
