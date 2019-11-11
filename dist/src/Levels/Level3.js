@@ -11,9 +11,9 @@ Ball.Level3.prototype = {
 
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
-		this.fontSmall = { font: "16px Arial", fill: "#e4beef" };
-		this.fontBig = { font: "24px Arial", fill: "#e4beef" };
-		this.fontMessage = { font: "24px Arial", fill: "#e4beef",  align: "center", stroke: "#320C3E", strokeThickness: 4 };
+		this.fontSmall = { font: "16px Times New Roman", fill: "#ffffff" };
+		this.fontBig = { font: "24px Times New Roman", fill: "#ffffff" };
+		this.fontMessage = { font: "24px Times New Roman", fill: "#ffffff",  align: "center", stroke: "#320C3E", strokeThickness: 4 };
 		this.audioStatus = true;
 		this.timer = 0;
 		this.totalTimer = 0;
@@ -21,6 +21,7 @@ Ball.Level3.prototype = {
 		this.maxLevels = 1;
 		this.movementForce = 20;
 		this.ballStartPos = { x: 1360, y: 2440 };
+		this.lives = 3;
 
 
 
@@ -80,22 +81,30 @@ Ball.Level3.prototype = {
 		this.pauseButton.fixedToCamera = true;
 		this.pauseButton.input.useHandCursor = true;
 		
-		this.audioButton = this.add.button(Ball._WIDTH-this.pauseButton.width-8*2, 8, 'button-audio', this.manageAudio, this);
+		/*this.audioButton = this.add.button(Ball._WIDTH-this.pauseButton.width-8*2, 8, 'button-audio', this.manageAudio, this);
 		this.audioButton.anchor.set(1,0);
 		this.audioButton.fixedToCamera = true;
 		this.audioButton.input.useHandCursor = true;
 		this.audioButton.animations.add('true', [0], 10, true);
 		this.audioButton.animations.add('false', [1], 10, true);
-		this.audioButton.animations.play(this.audioStatus);
+		this.audioButton.animations.play(this.audioStatus);*/
+
+		this.returnButton = this.add.button(Ball._WIDTH - this.pauseButton.width - 8 * 2, 8, 'button-audio', this.manageReturnMenu, this);
+		this.returnButton.anchor.set(1,0);
+		this.returnButton.fixedToCamera = true;
+		this.returnButton.input.useHandCursor = true;
 		
 		//this.panel = this.add.sprite(0, 0, 'panel');
 		//this.panel.fixedToCamera = true;
-		this.timerText = this.game.add.text(15, 15, "Time: "+this.timer, this.fontBig);
+		this.timerText = this.game.add.text(-150, 15, "Time: "+this.timer, this.fontBig);
 		this.timerText.fixedToCamera = true; 
 		this.levelText = this.game.add.text(120, 10, "Level: "+this.level+" / "+this.maxLevels, this.fontSmall);
 		this.levelText.fixedToCamera = true; 
 		this.totalTimeText = this.game.add.text(120, 30, "Total time: "+this.totalTimer, this.fontSmall);
 		this.totalTimeText.fixedToCamera = true;
+
+		this.livesText = this.game.add.text(15, 15, "Lives: "+this.lives, this.fontBig);
+		this.livesText.fixedToCamera = true;
 		
 
 	},
@@ -111,13 +120,14 @@ Ball.Level3.prototype = {
 		this.timerText.setText("Time: "+this.timer);
 		this.totalTimeText.setText("Total time: "+(this.totalTimer+this.timer));
 	},
-	managePause: function() {
+	manageReturnMenu: function () {
+		if(this.returnButton.input.useHandCursor == true) {
+			this.game.state.start('MainMenu');
+		};
+	},
+	managePause: function () {
 		this.game.paused = true;
-		var pausedText = this.add.text(Ball._WIDTH*0.5, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
-		pausedText.anchor.set(0.5);
-		this.pausedText.fixedToCamera = true;
 		this.input.onDown.add(function(){
-			pausedText.destroy();
 			this.game.paused = false;
 		}, this);
 	},

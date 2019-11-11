@@ -63,6 +63,12 @@ Ball.Level0.prototype = {
 		this.ball.body.setSize(25, 25);
 		this.ball.body.bounce.set(0.3, 0.3);
 
+		this.enemies = this.add.sprite(100, 100, 'enemies');
+		this.enemies.anchor.set(0.5);
+		this.physics.enable(this.enemies, Phaser.Physics.ARCADE);
+
+
+
 		this.initLevels();
 		this.showLevel(1);
 		this.keys = this.game.input.keyboard.createCursorKeys();

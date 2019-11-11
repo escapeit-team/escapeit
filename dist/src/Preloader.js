@@ -30,10 +30,10 @@ Ball.Preloader.prototype = {
 		this.load.image('lvlthreebutton', 'img/3button.png');
 		this.load.image('lvlfourbutton', 'img/4button.png');
 		this.load.image('lvlfivebutton', 'img/5button.png');
-
+		
 		
 
-
+		this.load.spritesheet('enemies', 'img/enemies.png', 35, 32);
 		this.load.spritesheet('button-audio', 'img/button-audio.png', 35, 35);
 		this.load.spritesheet('button-start', 'img/button-start.png', 146, 51);
 

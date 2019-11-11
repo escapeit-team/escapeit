@@ -13,16 +13,16 @@ Ball.Level2.prototype = {
 
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
-		this.fontSmall = { font: "16px Arial", fill: "#e4beef" };
-		this.fontBig = { font: "24px Arial", fill: "#e4beef" };
-		this.fontMessage = { font: "24px Arial", fill: "#e4beef",  align: "center", stroke: "#320C3E", strokeThickness: 4 };
+		this.fontSmall = { font: "16px Times New Roman", fill: "#ffffff" };
+		this.fontBig = { font: "24px Times New Roman", fill: "#ffffff" };
+		this.fontMessage = { font: "24px Times New Roman", fill: "#ffffff",  align: "center", stroke: "#320C3E", strokeThickness: 4 };
 		this.audioStatus = true;
 		this.timer = 0;
 		this.totalTimer = 0;
 		this.level = 1;
-		this.maxLevels = 2;
+		this.maxLevels = 3;
 		this.movementForce = 10;
-		this.ballStartPos = { x: Ball._WIDTH*0.5 - 32, y: 450 };
+		this.ballStartPos = { x: Ball._WIDTH*0.5 - 32, y: 482 };
 		this.lives = 3;
 
 		this.buttonPressed = this.add.sprite(32*4-16, 32*42-16, 'buttonPressed'); 
@@ -275,6 +275,130 @@ Ball.Level2.prototype = {
 				
 
 				
+			],
+
+			[
+				{ x: 32*0 , y: 32*9 , t: 'w' },
+				{ x: 32*0 , y: 32*22 , t: 'w' },
+				{ x: 32*0 , y: 32*24 , t: 'w' },
+				{ x: 32*0 , y: 32*27 , t: 'w' },
+				{ x: 32*0 , y: 32*33 , t: 'w' },
+				{ x: 32*0 , y: 32*37 , t: 'w' },
+				{ x: 32*0 , y: 32*41 , t: 'w' },
+				{ x: 32*0 , y: 32*43 , t: 'w' },
+				{ x: 32*1 , y: 32*19 , t: 'w' },
+				{ x: 32*2 , y: 32*7 , t: 'w' },
+				{ x: 32*2 , y: 32*12 , t: 'w' },
+				{ x: 32*2 , y: 32*14 , t: 'w' },
+				{ x: 32*3 , y: 32*4 , t: 'w' },
+				{ x: 32*4 , y: 32*9 , t: 'w' },
+				{ x: 32*4 , y: 32*21 , t: 'w' },
+				{ x: 32*4 , y: 32*24 , t: 'w' },
+				{ x: 32*4 , y: 32*31 , t: 'w' },
+				{ x: 32*4 , y: 32*33 , t: 'w' },
+				{ x: 32*4 , y: 32*37 , t: 'w' },
+				{ x: 32*4 , y: 32*40 , t: 'w' },
+				{ x: 32*4 , y: 32*43 , t: 'w' },
+				{ x: 32*5 , y: 32*16 , t: 'w' },
+				{ x: 32*6 , y: 32*6 , t: 'w' },
+				{ x: 32*6 , y: 32*11 , t: 'w' },
+				{ x: 32*6 , y: 32*14 , t: 'w' },
+				{ x: 32*6 , y: 32*18 , t: 'w' },
+				{ x: 32*7 , y: 32*37 , t: 'w' },
+				{ x: 32*8 , y: 32*8 , t: 'w' },
+				{ x: 32*8 , y: 32*20 , t: 'w' },
+				{ x: 32*8 , y: 32*23 , t: 'w' },
+				{ x: 32*8 , y: 32*31 , t: 'w' },
+				{ x: 32*8 , y: 32*39 , t: 'w' },
+				{ x: 32*8 , y: 32*42 , t: 'w' },
+				{ x: 32*10 , y: 32*5 , t: 'w' },
+				{ x: 32*10 , y: 32*25 , t: 'w' },
+				{ x: 32*10 , y: 32*29 , t: 'w' },
+				{ x: 32*11 , y: 32*44 , t: 'w' },
+				{ x: 32*12 , y: 32*23 , t: 'w' },
+				{ x: 32*12 , y: 32*27 , t: 'w' },
+				{ x: 32*12 , y: 32*31 , t: 'w' },
+				{ x: 32*12 , y: 32*35 , t: 'w' },
+				{ x: 32*12 , y: 32*38 , t: 'w' },
+				{ x: 32*12 , y: 32*42, t: 'w' },
+				{ x: 32*12 , y: 32*12 , t: 'w' },
+				{ x: 32*14 , y: 32*3 , t: 'w' },
+				{ x: 32*14 , y: 32*29 , t: 'w' },
+				{ x: 32*14 , y: 32*33 , t: 'w' },
+				{ x: 32*15 , y: 32*44 , t: 'w' },
+				{ x: 32*16 , y: 32*20 , t: 'w' },
+				{ x: 32*16 , y: 32*27 , t: 'w' },
+				{ x: 32*16 , y: 32*31 , t: 'w' },
+				{ x: 32*16 , y: 32*37 , t: 'w' },
+				{ x: 32*16 , y: 32*41 , t: 'w' },
+				{ x: 32*17 , y: 32*6 , t: 'w' },
+				{ x: 32*18 , y: 32*3 , t: 'w' },
+				{ x: 32*18 , y: 32*24 , t: 'w' },
+				{ x: 32*18 , y: 32*29 , t: 'w' },
+				{ x: 32*18 , y: 32*33 , t: 'w' },
+				{ x: 32*19 , y: 32*43 , t: 'w' },
+				{ x: 32*20 , y: 32*27 , t: 'w' },
+				{ x: 32*20 , y: 32*31, t: 'w' },
+				{ x: 32*20 , y: 32*36 , t: 'w' },
+				{ x: 32*20 , y: 32*41 , t: 'w' },
+				{ x: 32*21 , y: 32*6 , t: 'w' },
+				{ x: 32*22 , y: 32*10 , t: 'w' },
+				{ x: 32*22 , y: 32*24 , t: 'w' },
+				{ x: 32*22 , y: 32*29 , t: 'w' },
+				{ x: 32*22 , y: 32*3 , t: 'w' },
+				{ x: 32*23 , y: 32*43 , t: 'w' },
+				{ x: 32*24 , y: 32*27 , t: 'w' },
+				{ x: 32*25 , y: 32*3 , t: 'w' },
+				{ x: 32*25 , y: 32*6 , t: 'w' },
+				{ x: 32*25 , y: 32*12 , t: 'w' },
+				{ x: 32*26 , y: 32*10 , t: 'w' },
+				{ x: 32*26, y: 32*14 , t: 'w' },
+				{ x: 32*26 , y: 32*29 , t: 'w' },
+				{ x: 32*27 , y: 32*31 , t: 'w' },
+				{ x: 32*29 , y: 32*10 , t: 'w' },
+				{ x: 32*29 , y: 32*12 , t: 'w' },
+				
+				{ x: 32*1 , y: 32*0 , t: 'h' },
+				{ x: 32*1 , y: 32*4 , t: 'h' },
+				{ x: 32*1 , y: 32*14 , t: 'h' },
+				{ x: 32*2 , y: 32*29 , t: 'h' },
+				{ x: 32*4 , y: 32*16 , t: 'h' },
+				{ x: 32*4 , y: 32*27 , t: 'h' },
+				{ x: 32*8 , y: 32*0 , t: 'h' },
+				{ x: 32*9 , y: 32*26 , t: 'h' },
+				{ x: 32*9 , y: 32*32 , t: 'h' },
+				{ x: 32*10 , y: 32*1 , t: 'h' },
+				{ x: 32*10 , y: 32*10 , t: 'h' },
+				{ x: 32*10 , y: 32*15 , t: 'h' },
+				{ x: 32*11 , y: 32*33 , t: 'h' },
+				{ x: 32*12 , y: 32*0 , t: 'h' },				
+				{ x: 32*12 , y: 32*7 , t: 'h' },
+				{ x: 32*12 , y: 32*13 , t: 'h' },
+				{ x: 32*12 , y: 32*17 , t: 'h' },
+				{ x: 32*14 , y: 32*4 , t: 'h' },
+				{ x: 32*14 , y: 32*8 , t: 'h' },
+				{ x: 32*16 , y: 32*15 , t: 'h' },
+				{ x: 32*16 , y: 32*21 , t: 'h' },
+				{ x: 32*17 , y: 32*7 , t: 'h' },
+				{ x: 32*17 , y: 32*11 , t: 'h' },
+				{ x: 32*20 , y: 32*14 , t: 'h' },
+				{ x: 32*20 , y: 32*18 , t: 'h' },
+				{ x: 32*21 , y: 32*11 , t: 'h' },
+				{ x: 32*23 , y: 32*32 , t: 'h' },
+				{ x: 32*24 , y: 32*12 , t: 'h' },
+				{ x: 32*24 , y: 32*16 , t: 'h' },
+				{ x: 32*24 , y: 32*20 , t: 'h' },
+				{ x: 32*24 , y: 32*38 , t: 'h' },
+				{ x: 32*25 , y: 32*30 , t: 'h' },
+				{ x: 32*25 , y: 32*34 , t: 'h' },
+				{ x: 32*27 , y: 32*15 , t: 'h' },
+				{ x: 32*27 , y: 32*19 , t: 'h' },
+				{ x: 32*27 , y: 32*23 , t: 'h' },
+				{ x: 32*27 , y: 32*31 , t: 'h' },
+				{ x: 32*27 , y: 32*35 , t: 'h' },
+				{ x: 32*27 , y: 32*39 , t: 'h' }
+
+				
 
 			]
 		];
@@ -297,13 +421,18 @@ Ball.Level2.prototype = {
 		this.pauseButton.fixedToCamera = true;
 		this.pauseButton.input.useHandCursor = true;
 		
-		this.audioButton = this.add.button(Ball._WIDTH-this.pauseButton.width-8*2, 8, 'button-audio', this.manageAudio, this);
+		/*this.audioButton = this.add.button(Ball._WIDTH-this.pauseButton.width-8*2, 8, 'button-audio', this.manageAudio, this);
 		this.audioButton.anchor.set(1,0);
 		this.audioButton.fixedToCamera = true;
 		this.audioButton.input.useHandCursor = true;
 		this.audioButton.animations.add('true', [0], 10, true);
 		this.audioButton.animations.add('false', [1], 10, true);
-		this.audioButton.animations.play(this.audioStatus);
+		this.audioButton.animations.play(this.audioStatus);*/
+
+		this.returnButton = this.add.button(Ball._WIDTH - this.pauseButton.width - 8 * 2, 8, 'button-audio', this.manageReturnMenu, this);
+		this.returnButton.anchor.set(1,0);
+		this.returnButton.fixedToCamera = true;
+		this.returnButton.input.useHandCursor = true;
 		
 		//this.panel = this.add.sprite(0, 0, 'panel');
 		//this.panel.fixedToCamera = true;
@@ -332,13 +461,14 @@ Ball.Level2.prototype = {
 		this.timerText.setText("Time: "+this.timer);
 		this.totalTimeText.setText("Total time: "+(this.totalTimer+this.timer));
 	},
-	managePause: function() {
+	manageReturnMenu: function () {
+		if(this.returnButton.input.useHandCursor == true) {
+			this.game.state.start('MainMenu');
+		};
+	},
+	managePause: function () {
 		this.game.paused = true;
-		var pausedText = this.add.text(Ball._WIDTH*0.5, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
-		pausedText.anchor.set(0.5);
-		this.pausedText.fixedToCamera = true;
 		this.input.onDown.add(function(){
-			pausedText.kill();
 			this.game.paused = false;
 		}, this);
 	},
@@ -361,6 +491,7 @@ Ball.Level2.prototype = {
 			this.ball.body.velocity.y += this.movementForce;
 		}
 		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
+		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
@@ -417,6 +548,7 @@ Ball.Level2.prototype = {
 			this.showLevel();
 			this.buttonText.kill();
 			this.buttonPressed.kill();
+			this.collectButton();
 
 		}
 	},
