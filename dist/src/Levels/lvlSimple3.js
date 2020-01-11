@@ -1,15 +1,13 @@
-Ball.Level1 = function(game) {};
-Ball.Level1.prototype = {
+Ball.lvlSimple3 = function(game) {};
+Ball.lvlSimple3.prototype = {
 	create: function() {
 
 		//world its bigger than the initial bounds
-		this.game.world.setBounds(0, 0, 960, 1472); 
+		this.game.world.setBounds(0, 0, 960*3, 1472*3);
 
 		//The background
-		this.background = this.add.sprite(0, 0, 'screen-bg');
-		this.background.scale.setTo(8,8);
-
-		this.buttonText = this.add.sprite(32*3, 32*38, 'buttonText');
+		this.background = this.add.sprite(1200, 2200, 'screen-bg');
+		
 
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
@@ -21,31 +19,20 @@ Ball.Level1.prototype = {
 		this.totalTimer = 0;
 		this.level = 1;
 		this.maxLevels = 1;
-		this.movementForce = 10;
-		this.ballStartPos = { x: Ball._WIDTH*0.5 - 32, y: 482 };
+		this.movementForce = 20;
+		this.ballStartPos = { x: 1360, y: 2440 };
 
-		this.buttonPressed = this.add.sprite(32*4-16, 32*42-16, 'buttonPressed'); 
-		this.button = this.add.sprite(32*4, 32*42, 'button');
-		this.physics.enable(this.button, Phaser.Physics.ARCADE);
-		this.button.anchor.set(0.5);
-		this.button.body.setSize(25, 25);
 
-        this.hole = this.add.sprite(Ball._WIDTH*0.5, 90, 'hole');
-    	this.physics.enable(this.hole, Phaser.Physics.ARCADE);
+		this.hole = this.add.sprite(392, 1090, 'hole');
+		this.physics.enable(this.hole, Phaser.Physics.ARCADE);
 		this.hole.anchor.set(0.5);
-		this.hole.body.setSize(5, 5);
+		this.hole.body.setSize(2, 2);
 
 		this.ball = this.add.sprite(this.ballStartPos.x, this.ballStartPos.y, 'ball');
 		this.ball.anchor.set(0.5);
 		this.physics.enable(this.ball, Phaser.Physics.ARCADE);
 		this.ball.body.setSize(25, 25);
 		this.ball.body.bounce.set(0.3, 0.3);
-
-		this.wallGroup = this.add.group();
-		this.wallGroup.enableBody = true;
-		this.wallGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		this.wall1 = this.wallGroup.create(32*28, 32*11, 'element-w');
-		this.wallGroup.setAll('body.immovable', true);
 
 		this.initLevels();
 		this.showLevel(1);
@@ -56,23 +43,6 @@ Ball.Level1.prototype = {
 
 		this.time.events.loop(Phaser.Timer.SECOND, this.updateCounter, this);
 
-		//Borders of the game
-		this.borderGroup = this.add.group();
-		this.borderGroup.enableBody = true;
-		this.borderGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		
-		this.borderH = this.borderGroup.create(0, this.game.world.height - 1, 'border-horizontal');
-		this.borderH.scale.setTo(3,1);
-		//this.borderGroup.create(0, 0, 'border-horizontal');
-
-		this.borderV = this.borderGroup.create(0, 0, 'border-vertical');
-		this.borderV.scale.setTo(1,4);
-
-		this.borderV2 =this.borderGroup.create(0, 992, 'border-vertical');
-		this.borderV2.scale.setTo(1,2);
-		//this.borderGroup.create(Ball._WIDTH-2, 0, 'border-vertical');
-		this.borderGroup.setAll('body.immovable', true);
-		this.bounceSound = this.game.add.audio('audio-bounce');
 
 		//The camera follows the ball
 		this.game.camera.follow(this.ball);
@@ -82,54 +52,11 @@ Ball.Level1.prototype = {
 	initLevels: function() {
 		this.levels = [];
 		this.levelData = [
-
 			[
-				{ x: 32*0 , y: 32*11 , t: 'w' },
-				{ x: 32*4 , y: 32*11 , t: 'w' },
-				{ x: 32*8 , y: 32*11 , t: 'w' },
-				{ x: 32*12 , y: 32*11, t: 'w' },
-				{ x: 32*16 , y: 32*11 , t: 'w' },
-				{ x: 32*20 , y: 32*11 , t: 'w' },
-				{ x: 32*24 , y: 32*11 , t: 'w' },
-				{ x: 32*0 , y: 32*16 , t: 'w' },
-				{ x: 32*4 , y: 32*16 , t: 'w' },
-				{ x: 32*8 , y: 32*16 , t: 'w' },
-				{ x: 32*12 , y: 32*16, t: 'w' },
-				{ x: 32*16 , y: 32*16 , t: 'w' },
-				{ x: 32*20 , y: 32*16 , t: 'w' },
-				{ x: 32*24 , y: 32*16 , t: 'w' },
-				{ x: 32*4 , y: 32*21 , t: 'w' },
-				{ x: 32*8 , y: 32*21 , t: 'w' },
-				{ x: 32*12 , y: 32*21, t: 'w' },
-				{ x: 32*16 , y: 32*21 , t: 'w' },
-				{ x: 32*20 , y: 32*21 , t: 'w' },
-				{ x: 32*24 , y: 32*21 , t: 'w' },
-				{ x: 32*28 , y: 32*21 , t: 'w' },
-				{ x: 32*0 , y: 32*26 , t: 'w' },
-				{ x: 32*4 , y: 32*26 , t: 'w' },
-				{ x: 32*8 , y: 32*26 , t: 'w' },
-				{ x: 32*12 , y: 32*26, t: 'w' },
-				{ x: 32*16 , y: 32*26 , t: 'w' },
-				{ x: 32*20 , y: 32*26 , t: 'w' },
-				{ x: 32*24 , y: 32*26 , t: 'w' },
-				{ x: 32*4 , y: 32*31 , t: 'w' },
-				{ x: 32*8 , y: 32*31 , t: 'w' },
-				{ x: 32*12 , y: 32*31, t: 'w' },
-				{ x: 32*16 , y: 32*31 , t: 'w' },
-				{ x: 32*20 , y: 32*31 , t: 'w' },
-				{ x: 32*24 , y: 32*31 , t: 'w' },
-				{ x: 32*28 , y: 32*31 , t: 'w' },
-				{ x: 32*0 , y: 32*36 , t: 'w' },
-				{ x: 32*4 , y: 32*36 , t: 'w' },
-				{ x: 32*8 , y: 32*36 , t: 'w' },
-				{ x: 32*12 , y: 32*36, t: 'w' },
-				{ x: 32*16 , y: 32*36 , t: 'w' },
-				{ x: 32*20 , y: 32*36 , t: 'w' },
-				{ x: 32*24 , y: 32*36 , t: 'w' },
-
 				
 
-			]
+			],
+
 		];
 		for(var i=0; i<this.maxLevels; i++) {
 			var newLevel = this.add.group();
@@ -148,19 +75,20 @@ Ball.Level1.prototype = {
 		this.pauseButton = this.add.button(Ball._WIDTH-8, 8, 'button-pause', this.managePause, this);
 		this.pauseButton.anchor.set(1,0);
 		this.pauseButton.fixedToCamera = true;
-		this.pauseButton.input.useHandCursor = true;
+		this.pauseButton.input.useHandCursor = true;	
 
 		this.returnButton = this.add.button(Ball._WIDTH - this.pauseButton.width - 8 * 2, 8, 'button-audio', this.manageReturnMenu, this);
 		this.returnButton.anchor.set(1,0);
 		this.returnButton.fixedToCamera = true;
 		this.returnButton.input.useHandCursor = true;
-
+		
 		this.timerText = this.game.add.text(-150, 15, "Time: "+this.timer, this.fontBig);
 		this.timerText.fixedToCamera = true; 
 		this.levelText = this.game.add.text(120, 10, "Level: "+this.level+" / "+this.maxLevels, this.fontSmall);
 		this.levelText.fixedToCamera = true; 
 		this.totalTimeText = this.game.add.text(120, 30, "Total time: "+this.totalTimer, this.fontSmall);
 		this.totalTimeText.fixedToCamera = true;
+
 		
 
 	},
@@ -203,25 +131,28 @@ Ball.Level1.prototype = {
 			this.ball.body.velocity.y -= this.movementForce;
 		}
 		else if(this.keys.down.isDown) {
-			this.ball.body.velocity.y += this.movementForce;
-		}
+            this.ball.body.velocity.y += this.movementForce;
+        }
 		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
-		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
-		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
+
 
 		//Appear in the other side of the game
 		this.game.world.wrap(this.ball, 0, true);
 	},
+	
+	
 
-
-	collectButton: function() {
-		this.button.kill();
-		this.wall1.kill();
-
+	wallCollision: function() {
+		if(this.audioStatus) {
+			this.bounceSound.play();
+		}
+		// Vibration API
+		if("vibrate" in window.navigator) {
+			window.navigator.vibrate(100);
+		}
 	},
-
 	handleOrientation: function(e) {
 		// Device Orientation API
 		var x = e.gamma; // range [-90,90], left-right
@@ -233,9 +164,9 @@ Ball.Level1.prototype = {
 	finishLevel: function() {
 		if(this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
-			level1completed = true;
+			lvlSimple3completed = true;
 			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
-			this.game.state.start('LevelMenu');
+			this.game.state.start('MainMenu');
 		}
 		else {
 			alert('Congratulations, level '+this.level+' completed!');
@@ -250,10 +181,6 @@ Ball.Level1.prototype = {
 			this.ball.body.velocity.x = 0;
 			this.ball.body.velocity.y = 0;
 			this.showLevel();
-			this.buttonText.kill();
-			this.buttonPressed.kill();
-			this.collectButton();
-
 		}
 	},
 
@@ -263,3 +190,5 @@ Ball.Level1.prototype = {
 		 
 	}
 };
+
+

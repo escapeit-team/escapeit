@@ -21,7 +21,7 @@ Ball.Level0.prototype = {
 		this.maxLevels = 3;
 		this.movementForce = 10;
 		this.ballStartPos = { x: Ball._WIDTH*0.5 - 16, y: 450 };
-		this.lives = 3;
+		this.lives = 1;
 
 
 		this.speedUp = this.add.sprite(300, 400, 'speedUp');
@@ -63,9 +63,15 @@ Ball.Level0.prototype = {
 		this.ball.body.setSize(25, 25);
 		this.ball.body.bounce.set(0.3, 0.3);
 
-		this.enemies = this.add.sprite(100, 100, 'enemies');
-		this.enemies.anchor.set(0.5);
-		this.physics.enable(this.enemies, Phaser.Physics.ARCADE);
+
+		this.enemie1 = this.add.sprite(200, 400, 'enemies');
+		this.physics.enable(this.enemie1, Phaser.Physics.ARCADE);
+		this.enemie1.body.velocity.x = 50;
+		this.enemie1.direction = 50;
+		this.enemie1.animations.add('walk', [0, 1, 2, 3], 10, true);
+		this.enemie1.animations.play('walk');
+
+		
 
 
 
@@ -106,6 +112,7 @@ Ball.Level0.prototype = {
 		this.levelData = [
 			[
 				{ x: 96, y: 224, t: 'w' },
+				{ x: 250, y: 320, t: 'h' },
 
 	
 
@@ -145,21 +152,19 @@ Ball.Level0.prototype = {
 		}
 
 		
-		this.pauseButton = this.add.button(Ball._WIDTH-8, 8, 'button-pause', this.managePause, this);
-		this.pauseButton.anchor.set(1,0);
+		this.pauseButton = this.add.button(Ball._WIDTH - 8, 8, 'button-pause', this.managePause, this);
+		this.pauseButton.anchor.set(1, 0);
 		this.pauseButton.fixedToCamera = true;
 		this.pauseButton.input.useHandCursor = true;
 		
-		this.audioButton = this.add.button(Ball._WIDTH-this.pauseButton.width-8*2, 8, 'button-audio', this.manageAudio, this);
-		this.audioButton.anchor.set(1,0);
-		this.audioButton.fixedToCamera = true;
-		this.audioButton.input.useHandCursor = true;
-		this.audioButton.animations.add('true', [0], 10, true);
-		this.audioButton.animations.add('false', [1], 10, true);
-		this.audioButton.animations.play(this.audioStatus);
+
 		
-		//this.panel = this.add.sprite(0, 0, 'panel');
-		//this.panel.fixedToCamera = true;
+		this.returnButton = this.add.button(Ball._WIDTH - this.pauseButton.width - 8 * 2, 8, 'button-audio', this.manageReturnMenu, this);
+		this.returnButton.anchor.set(1,0);
+		this.returnButton.fixedToCamera = true;
+		this.returnButton.input.useHandCursor = true;
+
+		
 		this.timerText = this.game.add.text(-150, 15, "Time: "+this.timer, this.fontBig);
 		this.timerText.fixedToCamera = true; 
 		this.levelText = this.game.add.text(120, 10, "Level: "+this.level+" / "+this.maxLevels, this.fontSmall);
@@ -167,8 +172,8 @@ Ball.Level0.prototype = {
 		this.totalTimeText = this.game.add.text(120, 30, "Total time: "+this.totalTimer, this.fontSmall);
 		this.totalTimeText.fixedToCamera = true;
 
-		this.livesText = this.game.add.text(15, 15, "Lives: "+this.lives, this.fontBig);
-		this.livesText.fixedToCamera = true; 
+		//this.livesText = this.game.add.text(15, 15, "Lives: "+this.lives, this.fontBig);
+		//this.livesText.fixedToCamera = true; 
 
 		
 
@@ -194,6 +199,11 @@ Ball.Level0.prototype = {
 			this.game.paused = false;
 		}, this);
 	},
+	manageReturnMenu: function () {
+		if(this.returnButton.input.useHandCursor == true) {
+			this.game.state.start('MainMenu');
+		};
+	},
 	manageAudio: function() {
 		this.audioStatus =! this.audioStatus;
 		this.audioButton.animations.play(this.audioStatus);
@@ -211,14 +221,18 @@ Ball.Level0.prototype = {
 		}
 		else if(this.keys.down.isDown) {
 			this.ball.body.velocity.y += this.movementForce;
-		}
+		}		
+
+
 		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 
 		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.spikeGroup, this.ballLives, null, this);
-
+		this.physics.arcade.collide(this.ball, this.enemie1, this.ballLives, null, this);
+		this.physics.arcade.collide(this.enemie1, this.borderGroup, this.wallEnemie,  null, this);
+		this.physics.arcade.collide(this.enemie1, this.levels[this.level-1], this.wallEnemie, null, this);
 			
 		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
 		this.physics.arcade.overlap(this.ball, this.speedUp, this.collectSpeedUp, null, this);
@@ -245,7 +259,6 @@ Ball.Level0.prototype = {
 		this.button.kill();
 		this.wall1.destroy();
 		 		
-
 	},
 
 
@@ -254,7 +267,12 @@ Ball.Level0.prototype = {
 		this.ball.body.velocity.x *= 10;
 		this.ball.body.velocity.y *= 10;
 		 		
+	},
 
+	wallEnemie: function() {
+		this.enemie1.body.velocity.x = -this.enemie1.direction;
+		this.enemie1.direction = this.enemie1.body.velocity.x;
+		 		
 	},
 
 	wallCollision: function() {
@@ -277,8 +295,6 @@ Ball.Level0.prototype = {
 	finishLevel: function() {
 		if(this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
-			levelonecompleted = true;
-			leveltwocompleted = true;
 			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
 			this.game.state.start('MainMenu');
 		}

@@ -6,8 +6,11 @@
 	<link rel="icon" href="icons/icon.png" />
 	<style> body { margin: 0; background: #2B2E31 url(img/screen-bg.png) repeat; } </style>
 	<script>
-		var levelonecompleted = false;
-		var leveltwocompleted = false;
+		var tutorialcompleted = false;
+		var level1completed = false;
+		var lvlSimple1completed = false;
+		var lvlSimple2completed = false;
+		var lvlSimple3completed = false;
 	</script>
 	<script src="src/phaser-arcade-physics.2.2.2.min.js"></script>
 	<script src="src/Boot.js"></script>
@@ -15,9 +18,11 @@
 	<script src="src/MainMenu.js"></script>
 	<script src="src/Howto.js"></script>
 	<script src="src/Levels/Level0.js"></script>
+	<script src="src/Levels/Tutorial.js"></script>
 	<script src="src/Levels/Level1.js"></script>
-	<script src="src/Levels/Level2.js"></script>
-	<script src="src/Levels/Level3.js"></script>
+	<script src="src/Levels/lvlSimple1.js"></script>
+	<script src="src/Levels/lvlSimple2.js"></script>
+	<script src="src/Levels/lvlSimple3.js"></script>
 	<script src="src/LevelMenu.js"></script>
 </head>
 <body>
@@ -29,8 +34,11 @@
 	game.state.add('MainMenu', Ball.MainMenu);
 	game.state.add('Howto', Ball.Howto);
 	game.state.add('Level0', Ball.Level0);
+	game.state.add('Tutorial', Ball.Tutorial);
 	game.state.add('Level1', Ball.Level1);
-	game.state.add('Level2', Ball.Level2);
+	game.state.add('lvlSimple1', Ball.lvlSimple1);
+	game.state.add('lvlSimple2', Ball.lvlSimple2);
+	game.state.add('lvlSimple3', Ball.lvlSimple3);
 	game.state.add('Level3', Ball.Level3);
 	game.state.add('LevelMenu', Ball.LevelMenu);
 	game.state.start('Boot');
