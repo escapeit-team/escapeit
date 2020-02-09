@@ -13,12 +13,12 @@ Ball.LevelMenu.prototype = {
 			this.tutorialButton.input.useHandCursor = true;
 			this.level1Button = this.add.button(200, 320, 'lvltwobutton', this.level1, this);
 			this.level1Button.input.useHandCursor = true;
-			this.lvlSimple4Button = this.add.button(140, 320, 'lvltwobutton', this.level1, this);
+			this.lvlSimple4Button = this.add.button(140, 320, 'lvltwobutton', this.lvlSimple4, this);
 			this.lvlSimple4Button.input.useHandCursor = true;
 		}
 
 		if (this.lvlSimple4 == true) {
-			this.lvlSimple4Button = this.add.button(140, 320, 'lvlonebutton', this.level1, this);
+			this.lvlSimple4Button = this.add.button(140, 320, 'lvlonebutton', this.lvlSimple4, this);
 			this.lvlSimple4Button.input.useHandCursor = true;
 			this.lvlSpike1Button = this.add.button(140, 240, 'lvltwobutton', this.lvlSpike1, this);
 			this.lvlSpike1Button.input.useHandCursor = true;
