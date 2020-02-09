@@ -21,7 +21,10 @@ Ball.Preloader.prototype = {
 		this.load.image('button', 'img/button.png');
 		this.load.image('buttonPressed', 'img/button-pressed.png');
 		this.load.image('buttonText', 'img/button-text.png');
-		this.load.image('spikes', 'img/spikes.png');
+		this.load.image('spikesU', 'img/spikesU.png');
+		this.load.image('spikesD', 'img/spikesD.png');
+		this.load.image('spikesL', 'img/spikesL.png');
+		this.load.image('spikesR', 'img/spikesR.png');
 		this.load.image('speedUp', 'img/speedUp.png');
 		this.load.image('rebound', 'img/rebound.png');
 		this.load.image('hidden', 'img/hidden.png');
@@ -31,13 +34,17 @@ Ball.Preloader.prototype = {
 		this.load.image('lvlfourbutton', 'img/4button.png');
 		this.load.image('lvlfivebutton', 'img/5button.png');
 		this.load.image('lvlTree', 'img/lvlTree.png');
-
+		this.load.image('laser', 'img/laser.png');
+		this.load.image('laser1', 'img/laser1.png');
+		this.load.image('help', 'img/help.png');
 		
 		
 
 		this.load.spritesheet('enemies', 'img/enemies.png', 33, 32);
 		this.load.spritesheet('button-audio', 'img/button-audio.png', 35, 35);
 		this.load.spritesheet('button-start', 'img/button-start.png', 146, 51);
+		this.load.spritesheet('button-help', 'img/button-help.png', 146, 51);
+
 
 		this.load.audio('audio-bounce', ['audio/bounce.ogg', 'audio/bounce.mp3', 'audio/bounce.m4a']);
 	},

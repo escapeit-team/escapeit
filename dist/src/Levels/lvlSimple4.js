@@ -1,5 +1,5 @@
-Ball.Level4 = function (game) {};
-Ball.Level4.prototype = {
+Ball.lvlSimple4 = function (game) {};
+Ball.lvlSimple4.prototype = {
 	create: function () {
 
 		//world its bigger than the initial bounds
@@ -29,15 +29,15 @@ Ball.Level4.prototype = {
 		this.timer = 0;
 		this.totalTimer = 0;
 		this.level = 1;
-		this.maxLevels = 1;
+		this.maxLevels = 3;
 		this.movementForce = 10;
 		this.ballStartPos = {
-			x: 32 * 15,
-			y: 32 * 16
+			x: 32 * 15.5,
+			y: 32 * 16.5
 		};
 		this.lives = 3;
 
-		this.hole = this.add.sprite(32 * 14, 32 * 44, 'hole');
+		this.hole = this.add.sprite(32 * 14.5, 32 * 44.5, 'hole');
 		this.physics.enable(this.hole, Phaser.Physics.ARCADE);
 		this.hole.anchor.set(0.5);
 		this.hole.body.setSize(5, 5);
@@ -65,21 +65,22 @@ Ball.Level4.prototype = {
 
 		//Borders of the game
 
-
 		this.borderGroup = this.add.group();
 		this.borderGroup.enableBody = true;
 		this.borderGroup.physicsBodyType = Phaser.Physics.ARCADE;
 
-		this.borderH = this.borderGroup.create(0, this.game.world.height - 1, 'border-horizontal');
-		this.borderH.scale.setTo(2, 1);
-		this.borderH1 = this.borderGroup.create(0, 0, 'border-horizontal');
-		this.borderH1.scale.setTo(2, 1);
+		this.borderH31 = this.borderGroup.create(1*32, 46*32, 'border-horizontal');
+		this.borderH31.scale.setTo(2.99999, 1);
+
+		this.borderH1 = this.borderGroup.create(17*32, 0, 'border-horizontal');
+		this.borderH1.scale.setTo(1.5, 1);
+
+		this.borderH = this.borderGroup.create(0, 0, 'border-horizontal');
+		this.borderH.scale.setTo(1.3, 1);
 
 		this.borderV = this.borderGroup.create(0, 0, 'border-vertical');
-		this.borderV.scale.setTo(1, 2);
+		this.borderV.scale.setTo(1, 2.933);
 
-		/*this.borderV2 = this.borderGroup.create(479, 0, 'border-vertical');
-		this.borderV2.scale.setTo(1, 2);*/
 		this.borderGroup.setAll('body.immovable', true);
 		this.bounceSound = this.game.add.audio('audio-bounce');
 
@@ -1518,6 +1519,7 @@ Ball.Level4.prototype = {
 			this.ball.body.velocity.y += this.movementForce;
 		}
 		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
+		this.physics.arcade.collide(this.ball, this.wall1, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.levels[this.level - 1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
@@ -1554,7 +1556,7 @@ Ball.Level4.prototype = {
 	finishLevel: function () {
 		if (this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
-			levelonecompleted = true;
+			lvlSimple4completed = true;
 			alert('Congratulations, game completed!\nTotal time of play: ' + this.totalTimer + ' seconds!');
 			this.game.state.start('LevelMenu');
 		} else {

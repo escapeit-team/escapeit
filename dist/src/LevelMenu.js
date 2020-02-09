@@ -6,28 +6,39 @@ Ball.LevelMenu.prototype = {
 		this.tutorialButton = this.add.button(140, 400, 'lvltwobutton', this.tutorial, this);
 		this.tutorialButton.input.useHandCursor = true;
 		
-		this.level1Button = this.add.button(140, 320, 'lvlthreebutton', this.level1, this);
+		this.level1Button = this.add.button(200, 320, 'lvlthreebutton', this.level1, this);
+		this.lvlSimple4Button = this.add.button(140, 320, 'lvlthreebutton', this.lvlSimple4, this);
 		if (tutorialcompleted == true) {
 			this.tutorialButton = this.add.button(140, 400, 'lvlonebutton', this.tutorial, this);
 			this.tutorialButton.input.useHandCursor = true;
-			this.level1Button = this.add.button(140, 320, 'lvltwobutton', this.level1, this);
+			this.level1Button = this.add.button(200, 320, 'lvltwobutton', this.level1, this);
 			this.level1Button.input.useHandCursor = true;
+			this.lvlSimple4Button = this.add.button(140, 320, 'lvltwobutton', this.level1, this);
+			this.lvlSimple4Button.input.useHandCursor = true;
 		}
 
-		/*this.level4Button = this.add.button(140, 120, 'lvlthreebutton', this.level4, this);
-		if (tutorialcompleted == true) {
-			this.tutorialButton = this.add.button(140, 400, 'lvlonebutton', this.tutorial, this);
-			this.tutorialButton.input.useHandCursor = true;
-			this.level1Button = this.add.button(140, 320, 'lvltwobutton', this.level1, this);
-			this.level1Button.input.useHandCursor = true;
-		}*/
-		
+		if (this.lvlSimple4 == true) {
+			this.lvlSimple4Button = this.add.button(140, 320, 'lvlonebutton', this.level1, this);
+			this.lvlSimple4Button.input.useHandCursor = true;
+			this.lvlSpike1Button = this.add.button(140, 240, 'lvltwobutton', this.lvlSpike1, this);
+			this.lvlSpike1Button.input.useHandCursor = true;
+		}
+
+
 		this.lvlSimple1Button = this.add.button(99, 277, 'lvlthreebutton', this.lvlSimple1, this);
+		this.lvlSpike1Button = this.add.button(200, 240, 'lvlthreebutton', this.lvlSpike1, this);
 		if (level1completed == true) {
-			this.level1Button = this.add.button(140, 320, 'lvlonebutton', this.level1, this);
+			this.level1Button = this.add.button(200, 320, 'lvlonebutton', this.level1, this);
 			this.level1Button.input.useHandCursor = true;
 			this.lvlSimple1Button = this.add.button(99, 277, 'lvltwobutton', this.lvlSimple1, this);
 			this.lvlSimple1Button.input.useHandCursor = true;
+			this.lvlSpike1Button = this.add.button(200, 240, 'lvltwobutton', this.lvlSpike1, this);
+			this.lvlSpike1Button.input.useHandCursor = true;
+		}
+
+		if(lvlSpike1completed == true){
+			this.lvlSpike1Button = this.add.button(200, 240, 'lvlonebutton', this.lvlSpike1, this);
+			this.lvlSpike1Button.input.useHandCursor = true;
 		}
 		
 		this.lvlSimple2Button = this.add.button(55, 235, 'lvlthreebutton', this.lvlSimple2, this);
@@ -51,6 +62,7 @@ Ball.LevelMenu.prototype = {
 			this.lvlSimple3Button.input.useHandCursor = true;
 		}
 
+
 	},
 
 	tutorial: function() {
@@ -61,9 +73,9 @@ Ball.LevelMenu.prototype = {
 			this.game.state.start('Level1');
 		}
 	},
-	level4: function() {
+	lvlSimple4: function() {
 		if (tutorialcompleted == true) {
-			this.game.state.start('Level4');
+			this.game.state.start('lvlSimple4');
 		}
 	},
 	lvlSimple1: function() {
@@ -80,7 +92,12 @@ Ball.LevelMenu.prototype = {
 		if (lvlSimple2completed == true){
 			this.game.state.start('lvlSimple3');	
 		}
+	},
+	lvlSpike1: function() {
+		if(level1completed == true){
+			this.game.state.start('lvlSpike1');	
+		}
 	}
-	
+
 
 };

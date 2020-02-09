@@ -1,43 +1,42 @@
-Ball.Level0 = function(game) {};
+Ball.Level0 = function (game) { };
 Ball.Level0.prototype = {
-	create: function() {
+	create: function () {
 
 		//world its bigger than the initial bounds
-		this.game.world.setBounds(0, 0, 960, 1472); 
+		this.game.world.setBounds(0, 0, 960, 1472);
 
 		//The background
 		this.background = this.add.sprite(0, 0, 'screen-bg');
-		this.background.scale.setTo(8,8);
+		this.background.scale.setTo(8, 8);
 
-		
+
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 		this.fontSmall = { font: "16px Arial", fill: "#e4beef" };
 		this.fontBig = { font: "24px Arial", fill: "#e4beef" };
-		this.fontMessage = { font: "24px Arial", fill: "#e4beef",  align: "center", stroke: "#320C3E", strokeThickness: 4 };
+		this.fontMessage = { font: "24px Arial", fill: "#e4beef", align: "center", stroke: "#320C3E", strokeThickness: 4 };
 		this.audioStatus = true;
 		this.timer = 0;
 		this.totalTimer = 0;
 		this.level = 1;
 		this.maxLevels = 3;
 		this.movementForce = 10;
-		this.ballStartPos = { x: Ball._WIDTH*0.5 - 16, y: 450 };
+		this.ballStartPos = { x: Ball._WIDTH * 0.5 - 16, y: 450 };
 		this.lives = 1;
-
 
 		this.speedUp = this.add.sprite(300, 400, 'speedUp');
 		this.physics.enable(this.speedUp, Phaser.Physics.ARCADE);
 		this.speedUp.anchor.set(0.5);
 		this.speedUp.body.setSize(20, 20);
 
-		
-		this.buttonPressed = this.add.sprite(200-16, 400-16, 'buttonPressed'); 
+
+		this.buttonPressed = this.add.sprite(200 - 16, 400 - 16, 'buttonPressed');
 		this.button = this.add.sprite(200, 400, 'button');
 		this.physics.enable(this.button, Phaser.Physics.ARCADE);
 		this.button.anchor.set(0.5);
 		this.button.body.setSize(20, 20);
-		
 
-			
+
+
 		this.wallGroup = this.add.group();
 		this.wallGroup.enableBody = true;
 		this.wallGroup.physicsBodyType = Phaser.Physics.ARCADE;
@@ -47,12 +46,12 @@ Ball.Level0.prototype = {
 		this.spikeGroup = this.add.group();
 		this.spikeGroup.enableBody = true;
 		this.spikeGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		this.spike1 = this.spikeGroup.create(200, 500-18, 'spikes');
+		this.spike1 = this.spikeGroup.create(200, 500 - 18, 'spikes');
 		this.spikeGroup.setAll('body.immovable', true);
-		
 
 
-		this.hole = this.add.sprite(Ball._WIDTH*0.5, 90, 'hole');
+
+		this.hole = this.add.sprite(Ball._WIDTH * 0.5, 90, 'hole');
 		this.physics.enable(this.hole, Phaser.Physics.ARCADE);
 		this.hole.anchor.set(0.5);
 		this.hole.body.setSize(10, 10);
@@ -71,7 +70,33 @@ Ball.Level0.prototype = {
 		this.enemie1.animations.add('walk', [0, 1, 2, 3], 10, true);
 		this.enemie1.animations.play('walk');
 
-		
+		laserGroup = this.add.group();
+		this.physics.enable(laserGroup, Phaser.Physics.ARCADE);
+		laserGroup.enableBody = true;
+		laserGroup.physicsBodyType = Phaser.Physics.ARCADE;
+		let laser = laserGroup.create(100, 500, 'laser');
+		let a = true;
+
+ 	 	setInterval(function() {
+			  if(a === true) {
+				laserGroup.callAll('kill');
+				a = false;	  
+			  } else {
+				let laser1 = laserGroup.create(100, 500, 'laser');
+				a = true;	  
+			  }
+		  }, 2000);
+
+
+		/*setInterval(function () {
+			laserGroup.callAll('kill');
+		}, 2000);
+
+		setInterval(function () {
+			let laser1 = laserGroup.create(100, 500, 'laser');
+
+		}, 3000);*/
+
 
 
 
@@ -88,16 +113,16 @@ Ball.Level0.prototype = {
 		this.borderGroup = this.add.group();
 		this.borderGroup.enableBody = true;
 		this.borderGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		
+
 		this.borderH = this.borderGroup.create(0, this.game.world.height - 1, 'border-horizontal');
-		this.borderH.scale.setTo(3,1);
+		this.borderH.scale.setTo(3, 1);
 		this.borderGroup.create(0, 0, 'border-horizontal');
 
 		this.borderV = this.borderGroup.create(0, 0, 'border-vertical');
-		this.borderV.scale.setTo(1,2.01);
+		this.borderV.scale.setTo(1, 2.01);
 
-		this.borderV2 =this.borderGroup.create(0, 992, 'border-vertical');
-		this.borderV2.scale.setTo(1,2);
+		this.borderV2 = this.borderGroup.create(0, 992, 'border-vertical');
+		this.borderV2.scale.setTo(1, 2);
 		//this.borderGroup.create(Ball._WIDTH-2, 0, 'border-vertical');
 		this.borderGroup.setAll('body.immovable', true);
 		this.bounceSound = this.game.add.audio('audio-bounce');
@@ -106,15 +131,18 @@ Ball.Level0.prototype = {
 		this.game.camera.follow(this.ball);
 
 
+
+
+
 	},
-	initLevels: function() {
+	initLevels: function () {
 		this.levels = [];
 		this.levelData = [
 			[
 				{ x: 96, y: 224, t: 'w' },
 				{ x: 250, y: 320, t: 'h' },
 
-	
+
 
 			],
 			[
@@ -138,114 +166,118 @@ Ball.Level0.prototype = {
 				{ x: 158, y: 150, t: 'w' }
 			],
 		];
-		for(var i=0; i<this.maxLevels; i++) {
+		for (var i = 0; i < this.maxLevels; i++) {
 			var newLevel = this.add.group();
 			newLevel.enableBody = true;
 			newLevel.physicsBodyType = Phaser.Physics.ARCADE;
-			for(var e=0; e<this.levelData[i].length; e++) {
+			for (var e = 0; e < this.levelData[i].length; e++) {
 				var item = this.levelData[i][e];
-				newLevel.create(item.x, item.y, 'element-'+item.t);
+				newLevel.create(item.x, item.y, 'element-' + item.t);
 			}
 			newLevel.setAll('body.immovable', true);
 			newLevel.visible = false;
 			this.levels.push(newLevel);
 		}
 
-		
+
 		this.pauseButton = this.add.button(Ball._WIDTH - 8, 8, 'button-pause', this.managePause, this);
 		this.pauseButton.anchor.set(1, 0);
 		this.pauseButton.fixedToCamera = true;
 		this.pauseButton.input.useHandCursor = true;
-		
 
-		
+
+
 		this.returnButton = this.add.button(Ball._WIDTH - this.pauseButton.width - 8 * 2, 8, 'button-audio', this.manageReturnMenu, this);
-		this.returnButton.anchor.set(1,0);
+		this.returnButton.anchor.set(1, 0);
 		this.returnButton.fixedToCamera = true;
 		this.returnButton.input.useHandCursor = true;
 
-		
-		this.timerText = this.game.add.text(-150, 15, "Time: "+this.timer, this.fontBig);
-		this.timerText.fixedToCamera = true; 
-		this.levelText = this.game.add.text(120, 10, "Level: "+this.level+" / "+this.maxLevels, this.fontSmall);
-		this.levelText.fixedToCamera = true; 
-		this.totalTimeText = this.game.add.text(120, 30, "Total time: "+this.totalTimer, this.fontSmall);
+
+		this.timerText = this.game.add.text(-150, 15, "Time: " + this.timer, this.fontBig);
+		this.timerText.fixedToCamera = true;
+		this.levelText = this.game.add.text(120, 10, "Level: " + this.level + " / " + this.maxLevels, this.fontSmall);
+		this.levelText.fixedToCamera = true;
+		this.totalTimeText = this.game.add.text(120, 30, "Total time: " + this.totalTimer, this.fontSmall);
 		this.totalTimeText.fixedToCamera = true;
 
 		//this.livesText = this.game.add.text(15, 15, "Lives: "+this.lives, this.fontBig);
 		//this.livesText.fixedToCamera = true; 
 
-		
+
 
 	},
-	showLevel: function(level) {
+	showLevel: function (level) {
 		var lvl = level | this.level;
-		if(this.levels[lvl-2]) {
-			this.levels[lvl-2].visible = false;
+		if (this.levels[lvl - 2]) {
+			this.levels[lvl - 2].visible = false;
 		}
-		this.levels[lvl-1].visible = true;
+		this.levels[lvl - 1].visible = true;
 	},
-	updateCounter: function() {
+	updateCounter: function () {
 		this.timer++;
-		this.timerText.setText("Time: "+this.timer);
-		this.totalTimeText.setText("Total time: "+(this.totalTimer+this.timer));
+		this.timerText.setText("Time: " + this.timer);
+		this.totalTimeText.setText("Total time: " + (this.totalTimer + this.timer));
 	},
-	managePause: function() {
+	managePause: function () {
 		this.game.paused = true;
-		var pausedText = this.add.text(Ball._WIDTH*0.5, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
+		var pausedText = this.add.text(Ball._WIDTH * 0.5, 250, "Game paused,\ntap anywhere to continue.", this.fontMessage);
 		pausedText.anchor.set(0.5);
-		this.input.onDown.add(function(){
+		this.input.onDown.add(function () {
 			pausedText.destroy();
 			this.game.paused = false;
 		}, this);
 	},
 	manageReturnMenu: function () {
-		if(this.returnButton.input.useHandCursor == true) {
+		if (this.returnButton.input.useHandCursor == true) {
 			this.game.state.start('MainMenu');
 		};
 	},
-	manageAudio: function() {
-		this.audioStatus =! this.audioStatus;
+	manageAudio: function () {
+		this.audioStatus = !this.audioStatus;
 		this.audioButton.animations.play(this.audioStatus);
 	},
-	update: function() {
-	
-		if(this.keys.left.isDown) {
+	update: function () {
+
+
+		if (this.keys.left.isDown) {
 			this.ball.body.velocity.x -= this.movementForce;
 		}
-		else if(this.keys.right.isDown) {
+		else if (this.keys.right.isDown) {
 			this.ball.body.velocity.x += this.movementForce;
 		}
-		if(this.keys.up.isDown) {
+		if (this.keys.up.isDown) {
 			this.ball.body.velocity.y -= this.movementForce;
 		}
-		else if(this.keys.down.isDown) {
+		else if (this.keys.down.isDown) {
 			this.ball.body.velocity.y += this.movementForce;
-		}		
+		}
+
+
 
 
 		this.physics.arcade.collide(this.ball, this.borderGroup, this.wallCollision, null, this);
-		this.physics.arcade.collide(this.ball, this.levels[this.level-1], this.wallCollision, null, this);
+		this.physics.arcade.collide(this.ball, this.levels[this.level - 1], this.wallCollision, null, this);
 		this.physics.arcade.overlap(this.ball, this.hole, this.finishLevel, null, this);
 
 		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.spikeGroup, this.ballLives, null, this);
 		this.physics.arcade.collide(this.ball, this.enemie1, this.ballLives, null, this);
-		this.physics.arcade.collide(this.enemie1, this.borderGroup, this.wallEnemie,  null, this);
-		this.physics.arcade.collide(this.enemie1, this.levels[this.level-1], this.wallEnemie, null, this);
-			
+		this.physics.arcade.collide(this.ball, laserGroup, this.ballLives, null, this);
+		this.physics.arcade.collide(this.enemie1, this.borderGroup, this.wallEnemie, null, this);
+		this.physics.arcade.collide(this.enemie1, this.levels[this.level - 1], this.wallEnemie, null, this);
+
 		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
-		this.physics.arcade.overlap(this.ball, this.speedUp, this.collectSpeedUp, null, this);
+		this.physics.arcade.overlap(this.ball, laserGroup, this.ballLives, null, this);
 
 
 		//Appear in the other side of the game
 		this.game.world.wrap(this.ball, 0, true);
 	},
 
-	ballLives: function() {
+	ballLives: function () {
 		this.lives--;
-		if(this.lives) {
-			this.livesText.setText('Lives: '+this.lives);
+		if (this.lives) {
+			this.livesText.setText('Lives: ' + this.lives);
 		}
 		else {
 			alert('You lost, game over!');
@@ -254,58 +286,57 @@ Ball.Level0.prototype = {
 	},
 
 
-	
-	collectButton: function() {
+	collectButton: function () {
 		this.button.kill();
 		this.wall1.destroy();
-		 		
+
 	},
 
 
-	collectSpeedUp: function() {
+	collectSpeedUp: function () {
 		this.speedUp.kill();
 		this.ball.body.velocity.x *= 10;
 		this.ball.body.velocity.y *= 10;
-		 		
+
 	},
 
-	wallEnemie: function() {
+	wallEnemie: function () {
 		this.enemie1.body.velocity.x = -this.enemie1.direction;
 		this.enemie1.direction = this.enemie1.body.velocity.x;
-		 		
+
 	},
 
-	wallCollision: function() {
-		if(this.audioStatus) {
+	wallCollision: function () {
+		if (this.audioStatus) {
 			this.bounceSound.play();
 		}
 		// Vibration API
-		if("vibrate" in window.navigator) {
+		if ("vibrate" in window.navigator) {
 			window.navigator.vibrate(100);
 		}
 	},
-	handleOrientation: function(e) {
+	handleOrientation: function (e) {
 		// Device Orientation API
 		var x = e.gamma; // range [-90,90], left-right
 		var y = e.beta;  // range [-180,180], top-bottom
 		var z = e.alpha; // range [0,360], up-down
 		Ball._player.body.velocity.x += x;
-		Ball._player.body.velocity.y += y*0.5;
+		Ball._player.body.velocity.y += y * 0.5;
 	},
-	finishLevel: function() {
-		if(this.level >= this.maxLevels) {
+	finishLevel: function () {
+		if (this.level >= this.maxLevels) {
 			this.totalTimer += this.timer;
-			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
+			alert('Congratulations, game completed!\nTotal time of play: ' + this.totalTimer + ' seconds!');
 			this.game.state.start('MainMenu');
 		}
 		else {
-			alert('Congratulations, level '+this.level+' completed!');
+			alert('Congratulations, level ' + this.level + ' completed!');
 			this.totalTimer += this.timer;
 			this.timer = 0;
 			this.level++;
-			this.timerText.setText("Time: "+this.timer);
-			this.totalTimeText.setText("Total time: "+this.totalTimer);
-			this.levelText.setText("Level: "+this.level+" / "+this.maxLevels);
+			this.timerText.setText("Time: " + this.timer);
+			this.totalTimeText.setText("Total time: " + this.totalTimer);
+			this.levelText.setText("Level: " + this.level + " / " + this.maxLevels);
 			this.ball.body.x = this.ballStartPos.x;
 			this.ball.body.y = this.ballStartPos.y;
 			this.ball.body.velocity.x = 0;
@@ -316,9 +347,9 @@ Ball.Level0.prototype = {
 		}
 	},
 
-	render: function() {
-		 //this.game.debug.body(this.ball);
-		 //this.game.debug.body(this.hole);
-		 
+	render: function () {
+		//this.game.debug.body(this.ball);
+		//this.game.debug.body(this.hole);
+
 	}
 };

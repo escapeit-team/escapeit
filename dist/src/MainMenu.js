@@ -10,12 +10,18 @@ Ball.MainMenu.prototype = {
 		this.startButton.input.useHandCursor = true;
 		this.hiddenButton = this.add.button(0, 0, 'hidden', this.testLevel0, this);
 		this.hiddenButton.input.useHandCursor = true;
+		this.helpButton = this.add.button(90, 280, 'button-help', this.helpGame, this, 2, 0, 1);
+		this.helpButton.input.useHandCursor = true;
 
 		// button to "read the article"
 	},
 
 	startGame: function() {
 		this.game.state.start('LevelMenu');
+	},
+
+	helpGame: function() {
+		this.game.state.start('Help');
 	},
 	
 	testLevel0: function() {
