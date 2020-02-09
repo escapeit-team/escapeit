@@ -1572,8 +1572,6 @@ Ball.lvlSimple4.prototype = {
 			this.ball.body.velocity.x = 0;
 			this.ball.body.velocity.y = 0;
 			this.showLevel();
-			this.buttonPressed.kill();
-			this.buttonText.kill();
 
 		}
 	},
