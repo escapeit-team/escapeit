@@ -329,7 +329,7 @@ Ball.lvlSpike1.prototype = {
 			this.totalTimer += this.timer;
 			lvlSpike1completed = true;
 			alert('Congratulations, game completed!\nTotal time of play: '+this.totalTimer+' seconds!');
-			this.game.state.start('LevelMenu');
+			this.game.state.start('MainMenu');
 		}
 		else {
 			alert('Congratulations, level '+this.level+' completed!');

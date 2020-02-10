@@ -29,13 +29,13 @@ Ball.lvlSimple4.prototype = {
 		this.timer = 0;
 		this.totalTimer = 0;
 		this.level = 1;
-		this.maxLevels = 3;
+		this.maxLevels = 1;
 		this.movementForce = 10;
 		this.ballStartPos = {
 			x: 32 * 15.5,
 			y: 32 * 16.5
 		};
-		this.lives = 3;
+		this.lives = 1;
 
 		this.hole = this.add.sprite(32 * 14.5, 32 * 44.5, 'hole');
 		this.physics.enable(this.hole, Phaser.Physics.ARCADE);
@@ -60,7 +60,7 @@ Ball.lvlSimple4.prototype = {
 		this.wallGroup = this.add.group();
 		this.wallGroup.enableBody = true;
 		this.wallGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		this.wall1 = this.wallGroup.create(32 * 13, 32 * 3, 'element-w');
+		//this.wall1 = this.wallGroup.create(32 * 13, 32 * 3, 'element-w');
 		this.wallGroup.setAll('body.immovable', true);
 
 		//Borders of the game
@@ -1473,8 +1473,6 @@ Ball.lvlSimple4.prototype = {
 		this.totalTimeText = this.game.add.text(120, 30, "Total time: " + this.totalTimer, this.fontSmall);
 		this.totalTimeText.fixedToCamera = true;
 
-		this.livesText = this.game.add.text(15, 15, "Lives: " + this.lives, this.fontBig);
-		this.livesText.fixedToCamera = true;
 
 
 
