@@ -1,8 +1,9 @@
 Ball.Preloader = function(game) {};
 Ball.Preloader.prototype = {
 	preload: function() {
-		this.preloadBg = this.add.sprite((Ball._WIDTH-297)*0.5, (Ball._HEIGHT-145)*0.5, 'preloaderBg');
-		this.preloadBar = this.add.sprite((Ball._WIDTH-158)*0.5, (Ball._HEIGHT-50)*0.5, 'preloaderBar');
+		this.preloadBg = this.add.sprite(0,0, 'preloaderBg');
+		this.preloadBg.scale.setTo(0.27, 0.35);
+		this.preloadBar = this.add.sprite(0, 0, 'preloaderBar');
 		this.load.setPreloadSprite(this.preloadBar);
 
 		this.load.image('ball', 'img/ball.png');
@@ -41,6 +42,7 @@ Ball.Preloader.prototype = {
 		
 
 		this.load.spritesheet('enemies', 'img/enemies.png', 33, 32);
+		this.load.spritesheet('enemieP', 'img/enemieP.png', 33, 32);
 		this.load.spritesheet('button-audio', 'img/button-audio.png', 35, 35);
 		this.load.spritesheet('button-start', 'img/button-start.png', 146, 51);
 		this.load.spritesheet('button-help', 'img/button-help.png', 146, 51);

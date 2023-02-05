@@ -46,7 +46,7 @@ Ball.Level0.prototype = {
 		this.spikeGroup = this.add.group();
 		this.spikeGroup.enableBody = true;
 		this.spikeGroup.physicsBodyType = Phaser.Physics.ARCADE;
-		this.spike1 = this.spikeGroup.create(200, 500 - 18, 'spikes');
+		this.spike1 = this.spikeGroup.create(200, 500 - 18, 'spikesU');
 		this.spikeGroup.setAll('body.immovable', true);
 
 
@@ -63,12 +63,21 @@ Ball.Level0.prototype = {
 		this.ball.body.bounce.set(0.3, 0.3);
 
 
-		this.enemie1 = this.add.sprite(200, 400, 'enemies');
+		this.enemie1 = this.add.sprite(150, 350, 'enemies');
 		this.physics.enable(this.enemie1, Phaser.Physics.ARCADE);
 		this.enemie1.body.velocity.x = 50;
 		this.enemie1.direction = 50;
 		this.enemie1.animations.add('walk', [0, 1, 2, 3], 10, true);
 		this.enemie1.animations.play('walk');
+
+		this.enemiep = this.add.sprite(200, 400, 'enemieP');
+		this.physics.enable(this.enemiep, Phaser.Physics.ARCADE);
+		this.enemiep.body.velocity.x = 50;
+		this.enemiep.body.velocity.y = 50;
+		this.enemiep.direction = 50;
+		this.enemiep.directiony = 50;
+		this.enemiep.animations.add('walk', [0, 1, 2, 3], 10, true);
+		this.enemiep.animations.play('walk');
 
 		laserGroup = this.add.group();
 		this.physics.enable(laserGroup, Phaser.Physics.ARCADE);
@@ -262,9 +271,12 @@ Ball.Level0.prototype = {
 		this.physics.arcade.collide(this.ball, this.wallGroup, this.wallCollision, null, this);
 		this.physics.arcade.collide(this.ball, this.spikeGroup, this.ballLives, null, this);
 		this.physics.arcade.collide(this.ball, this.enemie1, this.ballLives, null, this);
+		this.physics.arcade.collide(this.ball, this.enemiep, this.ballLives, null, this);
 		this.physics.arcade.collide(this.ball, laserGroup, this.ballLives, null, this);
 		this.physics.arcade.collide(this.enemie1, this.borderGroup, this.wallEnemie, null, this);
 		this.physics.arcade.collide(this.enemie1, this.levels[this.level - 1], this.wallEnemie, null, this);
+		this.physics.arcade.collide(this.enemiep, this.borderGroup, this.wallEnemiep, null, this);
+		this.physics.arcade.collide(this.enemiep, this.levels[this.level - 1], this.wallEnemiep, null, this);
 
 		this.physics.arcade.overlap(this.ball, this.button, this.collectButton, null, this);
 		this.physics.arcade.overlap(this.ball, laserGroup, this.ballLives, null, this);
@@ -303,8 +315,17 @@ Ball.Level0.prototype = {
 	wallEnemie: function () {
 		this.enemie1.body.velocity.x = -this.enemie1.direction;
 		this.enemie1.direction = this.enemie1.body.velocity.x;
-
 	},
+	wallEnemiep: function () {
+		
+		this.enemiep.body.velocity.y = -this.enemie1.directiony;
+		this.enemiep.directiony = this.enemie1.body.velocity.y;
+
+		this.enemiep.body.velocity.x = -this.enemiep.direction;
+		this.enemiep.direction = this.enemiep.body.velocity.x;
+		
+	},
+
 
 	wallCollision: function () {
 		if (this.audioStatus) {
@@ -342,8 +363,6 @@ Ball.Level0.prototype = {
 			this.ball.body.velocity.x = 0;
 			this.ball.body.velocity.y = 0;
 			this.showLevel();
-			this.buttonPressed.kill();
-			this.spike1.kill();
 		}
 	},
 
