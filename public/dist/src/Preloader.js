@@ -3,7 +3,7 @@ Ball.Preloader.prototype = {
 	preload: function() {
 		this.preloadBg = this.add.sprite(0,0, 'preloaderBg');
 		this.preloadBg.scale.setTo(0.27, 0.35);
-		this.preloadBar = this.add.sprite(0, 0, 'preloaderBar');
+		this.preloadBar = this.add.sprite(50, 340, 'preloaderBar');
 		this.load.setPreloadSprite(this.preloadBar);
 
 		this.load.image('ball', 'img/ball.png');

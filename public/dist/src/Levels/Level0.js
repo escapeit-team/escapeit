@@ -18,7 +18,7 @@ Ball.Level0.prototype = {
 		this.timer = 0;
 		this.totalTimer = 0;
 		this.level = 1;
-		this.maxLevels = 3;
+		this.maxLevels = 1; //mudei isto
 		this.movementForce = 10;
 		this.ballStartPos = { x: Ball._WIDTH * 0.5 - 16, y: 450 };
 		this.lives = 1;
@@ -154,7 +154,7 @@ Ball.Level0.prototype = {
 
 
 			],
-			[
+			/*[
 				{ x: 72, y: 320, t: 'w' },
 				{ x: 200, y: 320, t: 'h' },
 				{ x: 72, y: 150, t: 'w' }
@@ -173,7 +173,7 @@ Ball.Level0.prototype = {
 				{ x: 192, y: 240, t: 'w' },
 				{ x: 30, y: 150, t: 'w' },
 				{ x: 158, y: 150, t: 'w' }
-			],
+			],*/
 		];
 		for (var i = 0; i < this.maxLevels; i++) {
 			var newLevel = this.add.group();
@@ -349,6 +349,13 @@ Ball.Level0.prototype = {
 			this.totalTimer += this.timer;
 			alert('Congratulations, game completed!\nTotal time of play: ' + this.totalTimer + ' seconds!');
 			this.game.state.start('MainMenu');
+			level1completed = true;
+			lvlSimple1completed = true;
+			lvlSimple2completed = true;
+			lvlSimple3completed = true;
+			lvlSimple4completed = true;
+			lvlSpike1completed = true;
+			tutorialcompleted = true;
 		}
 		else {
 			alert('Congratulations, level ' + this.level + ' completed!');
